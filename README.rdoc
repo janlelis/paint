@@ -1,0 +1,155 @@
+Paint manages terminal colors and effects for you. It combines the strengths of gems like term-ansicolor or rainbow into a simple to use and flexible colorizer.
+
+== Features
+* No string extensions (suitable for library development)
+* Supports setting 256 colors (for capable terminals)
+* Supports setting any effects (although most terminals won't support it)
+* Simple to use
+* Custom shortcuts can be defined and flexibly mixed in
+
+== TODO next version (beginning of july)
+* Fall-back mode for non-256-color terminals (Paint.mode)
+* Detection of those old terminals
+
+== Setup
+
+Install with:
+
+  gem install paint
+
+In Ruby do:
+
+  require 'paint'
+
+== Usage
+
+The only method you need to know to get started is: <tt>Paint.[]</tt>
+
+The first argument given to Paint.[] is the string to colorize (if the object is not a string, to_s will be called on the object). The other arguments describe how to modify/colorize the string. Let's learn by example:
+
+  Paint['Ruby', :red]           # sets ansi color red
+  Paint['Ruby', :red, :bright]  # also applies bright/bold effect
+  Paint['Ruby', :bright, :red]  # does the same as above
+  Paint['Ruby', :red, :bright, :underline] # effects can often be combined
+  Paint['Ruby', :red, :blue]    # the second color you define is for background
+  Paint['Ruby', nil, :blue]     # pass a nil before a color to ignore foreground and only set background color
+  Paint['Ruby', [100, 255, 5]]  # you can define rgb colors that map to one of 256 colors. Only supported on 256-color terminals, of course
+  Paint['Ruby', "gold", "snow"] # Paint supports rgb.txt color names, note that the arguments are strings (:yellow != "yellow")!
+  Paint['Ruby', "#123456"]      # html like definitions are possible.
+  Paint['Ruby', "fff"]          # another html hex definition
+  Paint['Ruby']                 # don't pass any argument to get one of eight random ansi foreground colors
+  Paint['Ruby', :inverse]       # swaps fore- and background
+  Paint['Ruby', :italic, :encircle, :rapid_blink, :overline] # probably not supported effects
+
+If you pass multiple colors, the first one is taken as foreground color and the second one defines the background color (all others will be ignored). To only change the background color, you have to pass a <tt>nil</tt> first. Effects can be passed in any order.
+
+To see more examples, checkout the specs.
+
+== More details about terminal colors and effects
+
+Terminal colors/effects are set by {ansi escape sequences}[http://en.wikipedia.org/wiki/ANSI_escape_code]. These are strings that look like this: <tt>\e[X;X;X;X;X]m</tt> where X are integers with some meaning. For example, 0 means reset, 31 means red foreground and 41 red background. When you tell Paint to use one of the eight ansi base colors as foreground color, it just inserts a number between 30 and 37 in the sequence. The following colors are available:
+
+  :black, :red, :green, :yellow, :blue, :magenta, :cyan, :white, (:default)
+
+When combined with the <tt>:bright</tt> (= <tt>:bold</tt>) effect, the color in the terminal emulator often differs a little bit.
+
+Through special sequences it's also possible to set 256-colors, instead of 8, which is also supported by many - but not all - terminals. Paint automatically translates given rgb colors to a suitable color of the 256 available colors.
+
+When using the <tt>Paint.[]</tt> method, Paint wraps the given string between the calculated escape sequence and an reset sequence (<tt>"\e[0m"</tt>). You can directly get only the escape sequence by using the <tt>Paint.color</tt> method.
+
+=== Effects (without colors)
+
+Also see {en.wikipedia.org/wiki/ANSI_escape_code}[http://en.wikipedia.org/wiki/ANSI_escape_code]:
+
+==== Often supported
+
+  0) :reset, :nothing
+  1) :bright, :bold
+  4) :underline
+  7) :inverse, :negative
+  8) :conceal, :hide
+  22) :clean
+  24) :underline_off
+  26) :inverse_off, :positive
+  27) :conceal_off, :show, :reveal
+
+==== Not widely supported
+
+  2) :faint
+  3) :italic
+  5) :blink, :slow_blink
+  6) :rapid_blink
+  9) :crossed, :crossed_out
+  10) :default_font, :font0
+  11-19) :font1, :font2, :font3, :font4, :font5, :font6, :font7, :font8, :font9
+  20) :fraktur
+  21) :bright_off, :bold_off, :double_underline
+  23) :italic_off, :fraktur_off
+  25) :blink_off
+  29) :crossed_off, :crossed_out_off
+  51) :frame
+  52) :encircle
+  53) :overline
+  54) :frame_off, :encircle_off
+  55) :overline_off
+
+== Shortcuts
+
+Now for the fancy part: Color shortcuts for your gems and scripts! Note: You don't have to use them (and only stick to <tt>Paint.[]</tt>) ;)
+
+It's easy: Just setup a hash of symbol keys and escape string values at: <tt>Paint::SHORTCUTS[:your_namespace]</tt>, for example:
+
+  Paint::SHORTCUTS[:example] = {
+    :white => Paint.color(:black),
+    :red => Paint.color(:red, :bright),
+    :title => Paint.color(:underline),
+  }
+
+The methods become rubymagically available in a <tt>Paint</tt> child model (via method_missing):
+
+  Paint::Example.red 'Ruby' # => "\e[31;1mRuby\e[0m"
+  Paint::Example.white      # => "\e[37m"
+
+As you can see, the helper methods look useful and can take either one (wrap string) or none (only color) arguments ...but they aren't really <em>short</em> yet.
+
+=== Inlcuding action
+
+Just include them:
+
+  include Paint::Example
+  red # => "\e[31;1m"
+  white 'Ruby' # => "\e[30m"
+
+All shortcuts, defined in your shortcut namespace at this time, are now (privately) available in your current namespace (without using a method_missing implementation).
+
+Furthermore, there are two variations of this approach:
+
+  include Paint::Example::String
+  "Ruby".title # => "\e[4mRuby\e[0m"
+  5.red # => "\e[31;1m5\e[0m"
+
+In this case, <tt>self</tt> will be converted to a string and wrapped with the specific color code. Note, that the helper methods doesn't take any arguments when using this method.
+
+The third way allows you to get a single color helper method to avoid cluttering namespaces:
+
+  include Paint::Example::Prefix::ExampleName
+  "Ruby".example_name(:red) # => "\e[31;1mRuby\e[0m"
+
+=== Utilities
+
+There are some helper methods available. You can get a <tt>p</tt> like alternative for calling <tt>Paint.[]</tt>:
+
+  require 'paint/pa'
+  pa "Ruby", :red, :underline  # same as puts Paint["Ruby", :red, :underline]
+
+Another one is <tt>Paint.unpaint</tt>, which removes any ansi colors:
+
+  Paint.unpaint( Paint['J-_-L', :red, :bright] ).should == 'J-_-L'
+
+== Credits
+
+Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor].
+
+Copyright (c) 2011 Jan Lelis, http://rbjl.net, released under the MIT license.
+
+J-_-L
