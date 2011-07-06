@@ -6,7 +6,7 @@ module Paint
   autoload :RGB_COLORS, 'paint/rgb_colors'
 
   # Important purpose
-  NOTHING = "\e[0m"
+  NOTHING = "\033[0m"
 
   # Basic colors (often, the color differs when using the bright effect)
   # Final color will be 30 + value for foreground and 40 + value for background
@@ -118,7 +118,7 @@ module Paint
 
     # Adds ansi sequence
     def wrap(*ansi_codes)
-      "\e[" + ansi_codes*";" + "m"
+      "\033[" + ansi_codes*";" + "m"
     end
 
     # Creates simple ansi color by looking it up on Paint::ANSI_COLORS
