@@ -13,18 +13,26 @@ describe 'Paint.simple' do
 end
 
 describe 'Paint.rgb' do
+  before do
+    Paint.mode = 256
+  end
+
   it 'returns ansi code sequence for one of 256 colors' do
-    Paint.rgb(1,2,3).should == '38;5;16'
+    Paint.rgb(1,2,3).should == '38;5;232'
   end
 
   it 'returns background ansi code sequence for one of 256 colors if last parameter is true' do
-    Paint.rgb(1, 2, 3, true).should == '48;5;16'
+    Paint.rgb(1, 2, 3, true).should == '48;5;232'
   end
 end
 
 describe 'Paint.hex' do
+  before do
+    Paint.mode = 256
+  end
+
   it 'returns ansi code sequence for one of 256 colors' do
-    Paint.hex("#fff").should == "38;5;231"
+    Paint.hex("#fff").should == "38;5;255"
   end
 
   it 'returns background ansi code sequence for one of 256 colors if second parameter is true' do
@@ -32,13 +40,17 @@ describe 'Paint.hex' do
   end
 end
 
-describe 'Paint.name' do
+describe 'Paint.rbb_name' do
+  before do
+    Paint.mode = 256
+  end
+
   it 'returns ansi code sequence for one of 256 colors' do
-    Paint.name("gold").should == "38;5;226"
+    Paint.rgb_name("gold").should == "38;5;226"
   end
 
   it 'returns background ansi code sequence for one of 256 colors if second parameter is true' do
-    Paint.name("gold", true).should == "48;5;226"
+    Paint.rgb_name("gold", true).should == "48;5;226"
   end
 end
 

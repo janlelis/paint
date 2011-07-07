@@ -6,10 +6,10 @@ Paint manages terminal colors and effects for you. It combines the strengths of 
 * Supports setting any effects (although most terminals won't support it)
 * Simple to use
 * Custom shortcuts can be defined and flexibly mixed in
-
-== TODO next version (beginning of july)
-* Fall-back mode for non-256-color terminals (Paint.mode)
-* Detection of those old terminals
+* Fall-back modes for non-256-color terminals (Paint.mode), supported modes:
+  * 256 colors
+  * 8 colors (ansi default)
+  * 16 colors (ansi default with bright effect)
 
 == Setup
 
@@ -44,6 +44,16 @@ The first argument given to Paint.[] is the string to colorize (if the object is
 If you pass multiple colors, the first one is taken as foreground color and the second one defines the background color (all others will be ignored). To only change the background color, you have to pass a <tt>nil</tt> first. Effects can be passed in any order.
 
 To see more examples, checkout the specs.
+
+== Paint.mode
+
+You can choose between three ways to use <tt>Paint.[]</tt> by setting <tt>Paint.mode</tt> to one of the following:
+* 256:   full support
+* 16:    don't use 256 colors, but the ansi 8 ones (combined with bright effect)
+* 8:     don't use 256 colors, but the ansi 8 ones (combined without bright effect)
+* false: don't colorize at all
+
+Paint tries to detect automatically the proper value, but this is still experimental. Please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value.
 
 == More details about terminal colors and effects
 
@@ -97,7 +107,7 @@ Also see {en.wikipedia.org/wiki/ANSI_escape_code}[http://en.wikipedia.org/wiki/A
 
 Now for the fancy part: Color shortcuts for your gems and scripts! Note: You don't have to use them (and only stick to <tt>Paint.[]</tt>) ;)
 
-It's easy: Just setup a hash of symbol keys and escape string values at: <tt>Paint::SHORTCUTS[:your_namespace]</tt>, for example:
+It's easy: Just setup a hash of symbol keys and escape string values at: <tt>Paint::SHORTCUTS[:your_namespace]</tt>. They are stored directly as escape sequences for performance reasons (this also means, you need different namespaces for different <tt>Paint.mode</tt>s). Example:
 
   Paint::SHORTCUTS[:example] = {
     :white => Paint.color(:black),
@@ -145,6 +155,10 @@ There are some helper methods available. You can get a <tt>p</tt> like alternati
 Another one is <tt>Paint.unpaint</tt>, which removes any ansi colors:
 
   Paint.unpaint( Paint['J-_-L', :red, :bright] ).should == 'J-_-L'
+
+== Todos
+=== Maybe
+* 24-bit color support (konsole), see http://www.reddit.com/r/programming/comments/6gxnp/making_the_most_of_colour_on_text_consoles/c03t8k8
 
 == Credits
 

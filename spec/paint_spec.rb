@@ -1,4 +1,8 @@
 describe 'Paint.[]' do
+  before do
+    Paint.mode = 256
+  end
+
   context '(with no options)' do
     it 'colorizes using a random ansi foreground color' do
       Paint['J-_-L'].should =~ /\e\[3\dmJ-_-L\e\[0m/
@@ -23,11 +27,11 @@ describe 'Paint.[]' do
     end
 
     it 'understands a hex string (with #, 3 digits) as rgb color definition and use it as foreground color' do
-      Paint['J-_-L', "#fff"].should == "\e[38;5;231mJ-_-L\e[0m"
+      Paint['J-_-L', "#fff"].should == "\e[38;5;255mJ-_-L\e[0m"
     end
 
     it 'understands a hex string (no #, 3 digits) as rgb color definition and use it as foreground color' do
-      Paint['J-_-L', "fff"].should == "\e[38;5;231mJ-_-L\e[0m"
+      Paint['J-_-L', "fff"].should == "\e[38;5;255mJ-_-L\e[0m"
     end
 
     it 'understands a non-hex string as rgb color name (rgb.txt) and use it as foreground color' do
@@ -41,7 +45,7 @@ describe 'Paint.[]' do
     end
 
     it 'interprets the first color as foreground color and the second one as background color (rgb)' do
-      Paint['J-_-L', '#424242', [42, 142, 242]].should == "\e[38;5;59;48;5;39mJ-_-L\e[0m"
+      Paint['J-_-L', '#424242', [42, 142, 242]].should == "\e[38;5;238;48;5;39mJ-_-L\e[0m"
     end
 
     it 'sets only a background color, if first color is nil' do

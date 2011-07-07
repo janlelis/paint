@@ -4,6 +4,7 @@ require 'paint/util'
 
 module Paint
   autoload :RGB_COLORS, 'paint/rgb_colors'
+  autoload :RGB_COLORS_ANSI, 'paint/rgb_colors_ansi'
 
   # Important purpose
   NOTHING = "\033[0m"
@@ -57,12 +58,17 @@ module Paint
     # Takes a string and color options and colorizes the string
     # See README.rdoc for details
     def [](string, *args)
-      color(*args) + string.to_s + NOTHING
+      if mode
+        color(*args) + string.to_s + NOTHING
+      else
+        string.to_s
+      end
     end
 
     # Sometimes, you only need the color
     # Used by []
     def color(*options)
+      return '' unless mode
       mix = []
       color_seen = false
 
@@ -94,7 +100,7 @@ module Paint
               mix << hex(option, color_seen)
               color_seen = true
             else
-              mix << name(option, color_seen)
+              mix << rgb_name(option, color_seen)
               color_seen = true
             end
 
@@ -116,6 +122,14 @@ module Paint
       wrap(*mix)
     end
 
+    # This variable influences the color code generation
+    # Currently supported values:
+    # * 256    - 256 colors
+    # * 16     - only ansi colors
+    # * false  - no colorization!
+    def mode()     @mode.nil? ? detect_mode : @mode end
+    def mode=(val) @mode = val                      end
+
     # Adds ansi sequence
     def wrap(*ansi_codes)
       "\033[" + ansi_codes*";" + "m"
@@ -128,7 +142,11 @@ module Paint
 
     # Creates a 256-compatible color from rgb values
     def rgb(red, green, blue, background = false)
-      "#{background ? 48 : 38};5;#{rgb_value(red, green, blue)}"
+      if mode == 8 || mode == 16
+        "#{background ? 4 : 3}#{rgb_like_value(red, green, blue, mode == 16)}"
+      else
+        "#{background ? 48 : 38}#{rgb_value(red, green, blue)}"
+      end
     end
 
     # Creates 256-compatible color from a html-like color string
@@ -145,9 +163,9 @@ module Paint
     end
 
     # Creates a 256-color from a name found in Paint::RGB_COLORS (based on rgb.txt)
-    def name(color_name, background = false)
+    def rgb_name(color_name, background = false)
       if color_code = RGB_COLORS[color_name]
-        "#{background ? 48 : 38};5;#{color_code}"
+        rgb(*color_code, background)
       end
     end
 
@@ -163,11 +181,48 @@ module Paint
 
     private
  
-    # Gets nearest supported color, heavily inspired by the rainbow gem
+    # Returns nearest supported 256-color an rgb value, without fore-/background information
+    # Inspired by the rainbow gem
     def rgb_value(red, green, blue)
-      [16, *[red, green, blue].zip([36, 6, 1]).map{ |color, mod|
-        (6 * (color.to_f / 256)).to_i * mod
-      }].inject(:+) 
+      gray_possible = true
+      sep = 42.5
+
+      while gray_possible
+        if red < sep || green < sep || blue < sep
+          gray = red < sep && green < sep && blue < sep
+          gray_possible = false
+        end
+        sep += 42.5
+      end
+
+      if gray
+        ";5;#{ 232 + ((red.to_f + green.to_f + blue.to_f)/33).round }"
+      else # rgb
+        ";5;#{ [16, *[red, green, blue].zip([36, 6, 1]).map{ |color, mod|
+          (6 * (color.to_f / 256)).to_i * mod
+        }].inject(:+) }"
+      end
+    end
+
+    # Returns ansi color matching an rgb value, without fore-/background information
+    # See http://mail.python.org/pipermail/python-list/2008-December/1150496.html
+    def rgb_like_value(red, green, blue, use_bright = false)
+      color_pool =  RGB_COLORS_ANSI.values
+      color_pool += RGB_COLORS_ANSI_BRIGHT.values if use_bright
+
+      ansi_color_rgb = color_pool.min_by{ |col| distance([red, green, blue],col) }
+      if ansi_color = RGB_COLORS_ANSI.key(ansi_color_rgb)
+        ANSI_COLORS[ansi_color]
+      else
+        ansi_color = RGB_COLORS_ANSI_BRIGHT.key(ansi_color_rgb)
+        "#{ANSI_COLORS[ansi_color]};1"
+      end
+    end
+
+    def distance(rgb1, rgb2)
+      rgb1.zip(rgb2).inject(0){ |acc, (cur1, cur2)|
+        acc + (cur1 - cur2)**2
+      }
     end
   end
 end
