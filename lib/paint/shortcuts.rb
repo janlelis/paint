@@ -40,7 +40,7 @@ module Paint
             if args.empty? then color_code else color_code + Array(args).join + NOTHING end
           end
         }
-        private *shortcuts.keys unless shortcuts.empty?
+        private(*shortcuts.keys) unless shortcuts.empty?
       end
 
       # include variations, defined in child modules

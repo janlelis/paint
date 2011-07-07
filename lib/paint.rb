@@ -127,8 +127,8 @@ module Paint
     # * 256    - 256 colors
     # * 16     - only ansi colors
     # * false  - no colorization!
-    def mode()     @mode.nil? ? detect_mode : @mode end
-    def mode=(val) @mode = val                      end
+    def mode() ( !defined?(@mode) || @mode.nil? ) ? detect_mode : @mode end
+    def mode=(val) @mode = val end
 
     # Adds ansi sequence
     def wrap(*ansi_codes)
