@@ -1,5 +1,5 @@
-require 'paint/version'
-require 'paint/shortcuts'
+require 'paint/version'  unless defined? Paint::VERSION
+require 'paint/shortcuts'unless defined? Paint::SHORTCUTS
 require 'paint/util'
 
 module Paint
@@ -165,7 +165,7 @@ module Paint
     # Creates a 256-color from a name found in Paint::RGB_COLORS (based on rgb.txt)
     def rgb_name(color_name, background = false)
       if color_code = RGB_COLORS[color_name]
-        rgb(*color_code, background)
+        rgb(*(color_code + [background] )) # 1.8 workaround
       end
     end
 
@@ -211,10 +211,11 @@ module Paint
       color_pool += RGB_COLORS_ANSI_BRIGHT.values if use_bright
 
       ansi_color_rgb = color_pool.min_by{ |col| distance([red, green, blue],col) }
-      if ansi_color = RGB_COLORS_ANSI.key(ansi_color_rgb)
+      key_method = RUBY_VERSION < "1.9" ? :index : :key
+      if ansi_color = RGB_COLORS_ANSI.send(key_method, ansi_color_rgb)
         ANSI_COLORS[ansi_color]
       else
-        ansi_color = RGB_COLORS_ANSI_BRIGHT.key(ansi_color_rgb)
+        ansi_color = RGB_COLORS_ANSI_BRIGHT.send(key_method, ansi_color_rgb)
         "#{ANSI_COLORS[ansi_color]};1"
       end
     end
