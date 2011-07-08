@@ -1,4 +1,8 @@
-=== 0.8.1 ==
+=== 0.8.2
+* Paint.[] with only a single string argument does not colorize the string anymore, but returns the plain string
+* New pseudo color :random - returns a random ansi color
+
+=== 0.8.1
 * Improve rgb function with better gray scale values
 * Add Paint.mode:
   * Set to false to deactivate colorizing
@@ -7,5 +11,5 @@
   * Tries to automatically detect your terminal's features
 * Minor changes
 
-=== 0.8.0 ===
+=== 0.8.0
 * Initial release

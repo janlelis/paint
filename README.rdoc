@@ -10,8 +10,8 @@ Paint manages terminal colors and effects for you. It combines the strengths of 
 * Custom shortcuts can be defined and flexibly mixed in
 * Fall-back modes for non-256-color terminals (Paint.mode), supported modes:
   * 256 colors
-  * 8 colors (ansi default)
-  * 16 colors (ansi default with bright effect)
+  * 8 colors (only ansi colors)
+  * 16 colors (only ansi colors, combined with bright effect)
 
 == Setup
 
@@ -39,23 +39,14 @@ The first argument given to Paint.[] is the string to colorize (if the object is
   Paint['Ruby', "gold", "snow"] # Paint supports rgb.txt color names, note that the arguments are strings (:yellow != "yellow")!
   Paint['Ruby', "#123456"]      # html like definitions are possible.
   Paint['Ruby', "fff"]          # another html hex definition
-  Paint['Ruby']                 # don't pass any argument to get one of eight random ansi foreground colors
+  Paint['Ruby', :random]        # pass :random to get one of eight random ansi foreground colors
   Paint['Ruby', :inverse]       # swaps fore- and background
   Paint['Ruby', :italic, :encircle, :rapid_blink, :overline] # probably not supported effects
+  Paint['Ruby']                 # don't pass any argument and the string will not be changed
 
 If you pass multiple colors, the first one is taken as foreground color and the second one defines the background color (all others will be ignored). To only change the background color, you have to pass a <tt>nil</tt> first. Effects can be passed in any order.
 
 To see more examples, checkout the specs.
-
-== Paint.mode
-
-You can choose between three ways to use <tt>Paint.[]</tt> by setting <tt>Paint.mode</tt> to one of the following:
-* 256:   full support
-* 16:    don't use 256 colors, but the ansi 8 ones (combined with bright effect)
-* 8:     don't use 256 colors, but the ansi 8 ones (combined without bright effect)
-* false: don't colorize at all
-
-Paint tries to detect automatically the proper value, but this is still experimental. Please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value.
 
 == More details about terminal colors and effects
 
@@ -104,6 +95,16 @@ Also see {en.wikipedia.org/wiki/ANSI_escape_code}[http://en.wikipedia.org/wiki/A
   53) :overline
   54) :frame_off, :encircle_off
   55) :overline_off
+
+== Paint.mode
+
+You can choose between three ways to use <tt>Paint.[]</tt> by setting <tt>Paint.mode</tt> to one of the following:
+* 256:   full support
+* 16:    don't use 256 colors, but the ansi eight ones (combined with bright effect)
+* 8:     don't use 256 colors, but the ansi eight ones
+* false: don't colorize at all
+
+Paint tries to detect automatically the proper value, but this is still experimental. Please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value for you.
 
 == Shortcuts
 

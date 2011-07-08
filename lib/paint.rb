@@ -58,7 +58,7 @@ module Paint
     # Takes a string and color options and colorizes the string
     # See README.rdoc for details
     def [](string, *args)
-      if mode
+      if mode && !args.empty?
         color(*args) + string.to_s + NOTHING
       else
         string.to_s
@@ -68,56 +68,55 @@ module Paint
     # Sometimes, you only need the color
     # Used by []
     def color(*options)
-      return '' unless mode
+      return '' if !mode || options.empty?
       mix = []
       color_seen = false
 
-      if options.empty?
-        mix << random(false) # random foreground color
-      else
-        options.each{ |option|
-          case option
-          when Symbol
-            if ANSI_EFFECTS.keys.include?(option)
-              mix << effect(option)
-            elsif ANSI_COLORS.keys.include?(option)
-              mix  << simple(option, color_seen)
-              color_seen = true
-            else
-              raise ArgumentError, "Unknown color or effect: #{ option }"
-            end
-
-          when Array
-            if option.size == 3 && option.all?{ |n| n.is_a? Numeric }
-              mix << rgb(*(option + [color_seen])) # 1.8 workaround
-              color_seen = true
-            else
-              raise ArgumentError, "Array argument must contain 3 numerals"
-            end
-
-          when ::String
-            if option =~ /^#?(?:[0-9a-f]{3}){1,2}$/
-              mix << hex(option, color_seen)
-              color_seen = true
-            else
-              mix << rgb_name(option, color_seen)
-              color_seen = true
-            end
-
-          when Numeric
-            integer = option.to_i
-            color_seen = true if (30..49).include?(integer)
-            mix << integer
-
-          when nil
+      options.each{ |option|
+        case option
+        when Symbol
+          if option == :random
+            mix << random(color_seen)
             color_seen = true
-          
+          elsif ANSI_EFFECTS.keys.include?(option)
+            mix << effect(option)
+          elsif ANSI_COLORS.keys.include?(option)
+            mix  << simple(option, color_seen)
+            color_seen = true
           else
-            raise ArgumentError, "Invalid argument: #{ option.inspect }"
-
+            raise ArgumentError, "Unknown color or effect: #{ option }"
           end
-        }
-      end
+
+        when Array
+          if option.size == 3 && option.all?{ |n| n.is_a? Numeric }
+            mix << rgb(*(option + [color_seen])) # 1.8 workaround
+            color_seen = true
+          else
+            raise ArgumentError, "Array argument must contain 3 numerals"
+          end
+
+        when ::String
+          if option =~ /^#?(?:[0-9a-f]{3}){1,2}$/
+            mix << hex(option, color_seen)
+            color_seen = true
+          else
+            mix << rgb_name(option, color_seen)
+            color_seen = true
+          end
+
+        when Numeric
+          integer = option.to_i
+          color_seen = true if (30..49).include?(integer)
+          mix << integer
+
+        when nil
+          color_seen = true
+        
+        else
+          raise ArgumentError, "Invalid argument: #{ option.inspect }"
+
+        end
+      }
 
       wrap(*mix)
     end

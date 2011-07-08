@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    paint (0.8.0)
+    paint (0.8.2)
 
 GEM
   remote: http://rubygems.org/

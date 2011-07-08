@@ -4,8 +4,8 @@ describe 'Paint.[]' do
   end
 
   context '(with no options)' do
-    it 'colorizes using a random ansi foreground color' do
-      Paint['J-_-L'].should =~ /\e\[3\dmJ-_-L\e\[0m/
+    it "doesn't colorize at all" do
+      Paint['J-_-L'].should == "J-_-L"
     end
   end
 
@@ -36,6 +36,10 @@ describe 'Paint.[]' do
 
     it 'understands a non-hex string as rgb color name (rgb.txt) and use it as foreground color' do
       Paint['J-_-L', "medium purple"].should == "\e[38;5;141mJ-_-L\e[0m"
+    end
+
+    it 'colorizes using a random ansi foreground color' do
+      Paint['J-_-L', :random].should =~ /\e\[3\dmJ-_-L\e\[0m/
     end
   end
   
