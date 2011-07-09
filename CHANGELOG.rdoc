@@ -1,5 +1,7 @@
-=== next (0.8.3)
+=== 0.8.3
 * Paint.[] also accepts uppercased hex strings (gh#2)
+* Performance tweaks (thanks to murphy) (gh#4, #5)
+  * API change: deactivate colorizing with Paint.mode = 0
 
 === 0.8.2
 * Paint.[] with only a single string argument does not colorize the string anymore, but returns the plain string

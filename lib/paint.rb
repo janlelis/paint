@@ -23,30 +23,6 @@ module Paint
     :default => 9,
   }
 
-  ANSI_COLORS_FOREGROUND = {
-    :black   => '30',
-    :red     => '31',
-    :green   => '32',
-    :yellow  => '33',
-    :blue    => '34',
-    :magenta => '35',
-    :cyan    => '36',
-    :white   => '37',
-    :default => '39',
-  }
-
-  ANSI_COLORS_BACKGROUND = {
-    :black   => '40',
-    :red     => '41',
-    :green   => '42',
-    :yellow  => '43',
-    :blue    => '44',
-    :magenta => '45',
-    :cyan    => '46',
-    :white   => '47',
-    :default => '49',
-  }
-
   # Terminal effects - most of them are not supported ;)
   # See http://en.wikipedia.org/wiki/ANSI_escape_code
   ANSI_EFFECTS = {
@@ -78,22 +54,49 @@ module Paint
     :overline_off  => 55,
   }
 
+  # cache
+  ANSI_COLORS_FOREGROUND = {
+    :black   => '30',
+    :red     => '31',
+    :green   => '32',
+    :yellow  => '33',
+    :blue    => '34',
+    :magenta => '35',
+    :cyan    => '36',
+    :white   => '37',
+    :default => '39',
+  }
+
+  # cache
+  ANSI_COLORS_BACKGROUND = {
+    :black   => '40',
+    :red     => '41',
+    :green   => '42',
+    :yellow  => '43',
+    :blue    => '44',
+    :magenta => '45',
+    :cyan    => '46',
+    :white   => '47',
+    :default => '49',
+  }
+
   class << self
     # Takes a string and color options and colorizes the string
     # See README.rdoc for details
-    def [](string, *args)
-      return string.to_s if args.empty? || mode.zero?
+    def [](string, *options)
+      return string.to_s if mode.zero? || options.empty?
       
-      if args.size == 1 && !args.first.respond_to?(:to_ary)
-        args = args.first
+      if options.size == 1 && !options.first.respond_to?(:to_ary)
+        options = options.first
       end
       
-      cache[args] + string.to_s + NOTHING
+      cache[options] + string.to_s + NOTHING
     end
 
     # Sometimes, you only need the color
     # Used by []
     def color(*options)
+      return '' if mode.zero? || options.empty?
       mix = []
       color_seen = false
       colors = ANSI_COLORS_FOREGROUND
@@ -155,8 +158,9 @@ module Paint
     # This variable influences the color code generation
     # Currently supported values:
     # * 256    - 256 colors
-    # * 16     - only ansi colors
-    # * false  - no colorization!
+    # * 16     - only ansi colors and bright effect
+    # * 9      - only ansi colors
+    # * 0      - no colorization!
     def mode() @mode ||= detect_mode end
     def mode=(val) cache.clear; @mode = val end
 

@@ -10,8 +10,9 @@ Paint manages terminal colors and effects for you. It combines the strengths of 
 * Custom shortcuts can be defined and flexibly mixed in
 * Fall-back modes for non-256-color terminals (Paint.mode), supported modes:
   * 256 colors
-  * 8 colors (only ansi colors)
   * 16 colors (only ansi colors, combined with bright effect)
+  * 8 colors (only ansi colors)
+  * 0 colors (deactivate)
 
 == Setup
 
@@ -169,4 +170,8 @@ Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansic
 
 Copyright (c) 2011 Jan Lelis, http://rbjl.net, released under the MIT license.
 
+Contributions[https://github.com/janlelis/paint/contributors] by and thanks to:
+* {murphy}[https://github.com/rubychan]
+
 J-_-L
+

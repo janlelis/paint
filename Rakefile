@@ -76,6 +76,12 @@ task :benchmark do
         colors.next
       end
     end
+
+    results.report 'paint' do
+      n.times do
+        Paint[string, colors.next]
+      end
+    end
     
     results.report 'term-ansicolor' do
       n.times do
@@ -88,13 +94,13 @@ task :benchmark do
         string.color(colors.next)
       end
     end
-    
-    results.report 'paint' do
+
+    results.report 'paint with background' do
       n.times do
-        Paint[string, colors.next]
+        Paint[string, colors.next, colors.next]
       end
     end
-    
+
     results.report 'term-ansicolor with background' do
       n.times do
         string.send(colors.next).send("on_#{colors.next}")
@@ -104,12 +110,6 @@ task :benchmark do
     results.report 'rainbow with background' do
       n.times do
         string.color(colors.next).background(colors.next)
-      end
-    end
-    
-    results.report 'paint with background' do
-      n.times do
-        Paint[string, colors.next, colors.next]
       end
     end
   end
