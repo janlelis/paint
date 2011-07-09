@@ -4,8 +4,8 @@ describe 'Paint.mode' do
     Paint['J-_-L', 'gold'].should == "\e[38;5;226mJ-_-L\e[0m"
   end
 
-  it "doesn't colorize anything if mode is false" do
-    Paint.mode = false
+  it "doesn't colorize anything if mode is 0" do
+    Paint.mode = 0
     Paint['J-_-L', 'gold'].should == "J-_-L"
   end
 

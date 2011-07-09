@@ -38,7 +38,7 @@ module Paint
         if ENV['ANSICON']
           16
         else
-          false
+          0
         end
       else
         # case ENV['COLORTERM']

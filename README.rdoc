@@ -102,7 +102,7 @@ You can choose between three ways to use <tt>Paint.[]</tt> by setting <tt>Paint.
 * 256:   full support
 * 16:    don't use 256 colors, but the ansi eight ones (combined with bright effect)
 * 8:     don't use 256 colors, but the ansi eight ones
-* false: don't colorize at all
+* 0:     don't colorize at all
 
 Paint tries to detect automatically the proper value, but this is still experimental. Please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value for you.
 
