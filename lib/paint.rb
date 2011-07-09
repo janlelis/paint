@@ -96,7 +96,7 @@ module Paint
           end
 
         when ::String
-          if option =~ /^#?(?:[0-9a-f]{3}){1,2}$/
+          if option =~ /^#?(?:[0-9a-f]{3}){1,2}$/i
             mix << hex(option, color_seen)
             color_seen = true
           else

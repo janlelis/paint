@@ -34,6 +34,10 @@ describe 'Paint.[]' do
       Paint['J-_-L', "fff"].should == "\e[38;5;255mJ-_-L\e[0m"
     end
 
+    it 'understands a hex string (with uppercased letters) as rgb color definition and use it as foreground color' do
+      Paint['J-_-L', "#4183C4"].should == "\e[38;5;74mJ-_-L\e[0m"
+    end
+
     it 'understands a non-hex string as rgb color name (rgb.txt) and use it as foreground color' do
       Paint['J-_-L', "medium purple"].should == "\e[38;5;141mJ-_-L\e[0m"
     end

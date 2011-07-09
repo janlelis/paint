@@ -1,3 +1,6 @@
+=== next (0.8.3)
+* Paint.[] also accepts uppercased hex strings (gh#2)
+
 === 0.8.2
 * Paint.[] with only a single string argument does not colorize the string anymore, but returns the plain string
 * New pseudo color :random - returns a random ansi color
