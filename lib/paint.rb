@@ -23,6 +23,30 @@ module Paint
     :default => 9,
   }
 
+  ANSI_COLORS_FOREGROUND = {
+    :black   => '30',
+    :red     => '31',
+    :green   => '32',
+    :yellow  => '33',
+    :blue    => '34',
+    :magenta => '35',
+    :cyan    => '36',
+    :white   => '37',
+    :default => '39',
+  }
+
+  ANSI_COLORS_BACKGROUND = {
+    :black   => '40',
+    :red     => '41',
+    :green   => '42',
+    :yellow  => '43',
+    :blue    => '44',
+    :magenta => '45',
+    :cyan    => '46',
+    :white   => '47',
+    :default => '49',
+  }
+
   # Terminal effects - most of them are not supported ;)
   # See http://en.wikipedia.org/wiki/ANSI_escape_code
   ANSI_EFFECTS = {
@@ -58,31 +82,33 @@ module Paint
     # Takes a string and color options and colorizes the string
     # See README.rdoc for details
     def [](string, *args)
-      if mode && !args.empty?
-        color(*args) + string.to_s + NOTHING
-      else
-        string.to_s
+      return string.to_s if args.empty? || mode.zero?
+      
+      if args.size == 1 && !args.first.respond_to?(:to_ary)
+        args = args.first
       end
+      
+      cache[args] + string.to_s + NOTHING
     end
 
     # Sometimes, you only need the color
     # Used by []
     def color(*options)
-      return '' if !mode || options.empty?
       mix = []
       color_seen = false
+      colors = ANSI_COLORS_FOREGROUND
 
       options.each{ |option|
         case option
         when Symbol
-          if option == :random
-            mix << random(color_seen)
-            color_seen = true
-          elsif ANSI_EFFECTS.keys.include?(option)
+          if color = colors[option]
+            mix << color
+            color_seen = :set
+          elsif ANSI_EFFECTS.key?(option)
             mix << effect(option)
-          elsif ANSI_COLORS.keys.include?(option)
-            mix  << simple(option, color_seen)
-            color_seen = true
+          elsif option == :random
+            mix << random(color_seen)
+            color_seen = :set
           else
             raise ArgumentError, "Unknown color or effect: #{ option }"
           end
@@ -90,7 +116,7 @@ module Paint
         when Array
           if option.size == 3 && option.all?{ |n| n.is_a? Numeric }
             mix << rgb(*(option + [color_seen])) # 1.8 workaround
-            color_seen = true
+            color_seen = :set
           else
             raise ArgumentError, "Array argument must contain 3 numerals"
           end
@@ -98,23 +124,28 @@ module Paint
         when ::String
           if option =~ /^#?(?:[0-9a-f]{3}){1,2}$/
             mix << hex(option, color_seen)
-            color_seen = true
+            color_seen = :set
           else
             mix << rgb_name(option, color_seen)
-            color_seen = true
+            color_seen = :set
           end
 
         when Numeric
           integer = option.to_i
-          color_seen = true if (30..49).include?(integer)
+          color_seen = :set if (30..49).include?(integer)
           mix << integer
 
         when nil
-          color_seen = true
+          color_seen = :set
         
         else
           raise ArgumentError, "Invalid argument: #{ option.inspect }"
 
+        end
+        
+        if color_seen == :set
+          colors = ANSI_COLORS_BACKGROUND
+          color_seen = true
         end
       }
 
@@ -126,8 +157,8 @@ module Paint
     # * 256    - 256 colors
     # * 16     - only ansi colors
     # * false  - no colorization!
-    def mode() ( !defined?(@mode) || @mode.nil? ) ? detect_mode : @mode end
-    def mode=(val) @mode = val end
+    def mode() @mode ||= detect_mode end
+    def mode=(val) cache.clear; @mode = val end
 
     # Adds ansi sequence
     def wrap(*ansi_codes)
@@ -179,6 +210,10 @@ module Paint
     end
 
     private
+    
+    def cache
+      @cache ||= Hash.new { |h, k| h[k] = color(*k) }
+    end
  
     # Returns nearest supported 256-color an rgb value, without fore-/background information
     # Inspired by the rainbow gem
