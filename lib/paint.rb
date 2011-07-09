@@ -173,7 +173,7 @@ module Paint
       (background ? 40 : 30) + rand(8)
     end
 
-    # Creates the specified effect by looking it up in Paint::ANSI_COLORS
+    # Creates the specified effect by looking it up in Paint::ANSI_EFFECTS
     def effect(effect_name)
       ANSI_EFFECTS[effect_name]
     end
