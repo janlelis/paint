@@ -8,7 +8,7 @@
 === 0.8.1
 * Improve rgb function with better gray scale values
 * Add Paint.mode:
-  * Set to false to deactivate colorizing
+  * Set to 0 to deactivate colorizing
   * Set to 16 or 8 and all color generation methods will generate simple ansi colors
   * Set to 256 for 256 color support
   * Tries to automatically detect your terminal's features
