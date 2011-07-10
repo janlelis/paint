@@ -159,7 +159,7 @@ module Paint
     # Currently supported values:
     # * 256    - 256 colors
     # * 16     - only ansi colors and bright effect
-    # * 9      - only ansi colors
+    # * 8      - only ansi colors
     # * 0      - no colorization!
     def mode() @mode ||= detect_mode end
     def mode=(val) cache.clear; @mode = val end
