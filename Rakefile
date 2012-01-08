@@ -1,6 +1,6 @@
 GEMSPEC = 'paint.gemspec'
 
-require 'rake'
+#require 'rake'
 #require 'rake/rdoctask'
 require 'fileutils'
 require 'rspec/core/rake_task'

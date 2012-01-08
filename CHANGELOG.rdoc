@@ -1,3 +1,6 @@
+=== 0.8.4
+* Fix post-install message unicode
+
 === 0.8.3
 * Paint.[] also accepts uppercased hex strings (gh#2)
 * Performance tweaks (thanks to murphy) (gh#4, #5)
