@@ -37,6 +37,8 @@ module Paint
       if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/ # windows
         if ENV['ANSICON']
           16
+        elsif ENV['ConEmuANSI'] == 'ON'
+          256
         else
           0
         end
