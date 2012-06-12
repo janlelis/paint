@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/spec_helper'
+
 describe 'Paint.[]' do
   before do
     Paint.mode = 256

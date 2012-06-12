@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/spec_helper'
+
 describe 'Paint.color' do
   it 'only returns a the color escape sequnce and is directly used by Paint.[] with all paramenters except the first; see there fore specs' do end
 end
@@ -85,5 +87,5 @@ describe 'Paint.rainbow' do
 end
 
 describe 'Paint.update_rgb_colors' do
-  it 'updates the Paint::RGB_COLORS hash using rgb.txt (takes path to it as argument' do end
+  it 'updates the Paint::RGB_COLORS hash using rgb.txt (takes path to it as argument)' do end
 end

@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/spec_helper'
+
 describe 'Paint.mode' do
   it "works normally if mode is 256 or another unknown true value" do
     Paint.mode = 256

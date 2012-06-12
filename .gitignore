@@ -3,4 +3,5 @@ Rakefile.compiled.rbc
 *.swp
 *~
 pkg
+.rbx
 Gemfile.lock

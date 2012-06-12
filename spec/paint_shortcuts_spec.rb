@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/spec_helper'
+
 # TODO fix include specs, probably failing because of some rspec voodoo
 
 describe 'Paint::SHORTCUTS' do
