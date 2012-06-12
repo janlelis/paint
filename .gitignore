@@ -3,3 +3,4 @@ Rakefile.compiled.rbc
 *.swp
 *~
 pkg
+Gemfile.lock
