@@ -1,4 +1,4 @@
-Paint manages terminal colors and effects for you. It combines the strengths of gems like term-ansicolor or rainbow into a simple to use and flexible colorizer.
+Paint manages terminal colors and effects for you. It combines the strengths of gems like term-ansicolor or rainbow into a simple to use, but still flexible colorizer with no core extensions by default.
 
 {Travis}[http://travis-ci.org/janlelis/paint]: http://travis-ci.org/janlelis/paint.png
 
@@ -48,6 +48,9 @@ The first argument given to Paint.[] is the string to colorize (if the object is
 If you pass multiple colors, the first one is taken as foreground color and the second one defines the background color (all others will be ignored). To only change the background color, you have to pass a <tt>nil</tt> first. Effects can be passed in any order.
 
 To see more examples, checkout the specs.
+
+== Windows Support
+To enjoy colorful terminals on Windows OS, you can use {ansicon}[https://github.com/adoxa/ansicon] or {ConEmu}[http://code.google.com/p/conemu-maximus5/].
 
 == More details about terminal colors and effects
 
@@ -107,7 +110,7 @@ You can choose between three ways to use <tt>Paint.[]</tt> by setting <tt>Paint.
 
 Paint tries to detect automatically the proper value, but this is still experimental. Please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value for you.
 
-== Shortcuts
+== Advanced Usage: Shortcuts
 
 Now for the fancy part: Color shortcuts for your gems and scripts! Note: You don't have to use them (and only stick to <tt>Paint.[]</tt>) ;)
 
@@ -119,16 +122,14 @@ It's easy: Just setup a hash of symbol keys and escape string values at: <tt>Pai
     :title => Paint.color(:underline),
   }
 
-The methods become rubymagically available in a <tt>Paint</tt> child model (via method_missing):
+The methods become "rubymagically" available in a <tt>Paint</tt> child model:
 
   Paint::Example.red 'Ruby' # => "\e[31;1mRuby\e[0m"
   Paint::Example.white      # => "\e[37m"
 
 As you can see, the helper methods look useful and can take either one (wrap string) or none (only color) arguments ...but they aren't really <em>short</em> yet.
 
-=== Inlcuding action
-
-Just include them:
+Fortunately, you can include them:
 
   include Paint::Example
   red # => "\e[31;1m"
@@ -142,7 +143,7 @@ Furthermore, there are two variations of this approach:
   "Ruby".title # => "\e[4mRuby\e[0m"
   5.red # => "\e[31;1m5\e[0m"
 
-In this case, <tt>self</tt> will be converted to a string and wrapped with the specific color code. Note, that the helper methods doesn't take any arguments when using this method.
+In this case, <tt>self</tt> will be converted to a string and wrapped with the specific color code. Note, that the helper methods doesn't take any arguments when using this inclusion method.
 
 The third way allows you to get a single color helper method to avoid cluttering namespaces:
 
@@ -151,27 +152,28 @@ The third way allows you to get a single color helper method to avoid cluttering
 
 === Utilities
 
-There are some helper methods available. You can get a <tt>p</tt> like alternative for calling <tt>Paint.[]</tt>:
+There are some supporting methods available. You can get a <tt>p</tt> like alternative for calling <tt>puts Paint.[]</tt>:
 
   require 'paint/pa'
   pa "Ruby", :red, :underline  # same as puts Paint["Ruby", :red, :underline]
 
-Another one is <tt>Paint.unpaint</tt>, which removes any ansi colors:
+Another helper method is <tt>Paint.unpaint</tt>, which removes any ansi colors:
 
   Paint.unpaint( Paint['J-_-L', :red, :bright] ).should == 'J-_-L'
 
 == Todos
 === Maybe
+
 * 24-bit color support (konsole), see http://www.reddit.com/r/programming/comments/6gxnp/making_the_most_of_colour_on_text_consoles/c03t8k8
 
 == Credits
 
-Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor].
+Copyright (c) 2011-2012 Jan Lelis, http://rbjl.net, released under the MIT license.
 
-Copyright (c) 2011 Jan Lelis, http://rbjl.net, released under the MIT license.
+Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor].
 
 Contributions[https://github.com/janlelis/paint/contributors] by and thanks to:
 * {murphy}[https://github.com/rubychan]
 
-J-_-L
+== J-_-L
 
