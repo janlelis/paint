@@ -165,6 +165,7 @@ Another helper method is <tt>Paint.unpaint</tt>, which removes any ansi colors:
 === Maybe
 
 * 24-bit color support (konsole), see http://www.reddit.com/r/programming/comments/6gxnp/making_the_most_of_colour_on_text_consoles/c03t8k8
+* Complete the few missing specs
 
 == Credits
 
@@ -174,6 +175,7 @@ Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansic
 
 Contributions[https://github.com/janlelis/paint/contributors] by and thanks to:
 * {murphy}[https://github.com/rubychan]
+* {CyberShadow}[https://github.com/CyberShadow]
 
 == J-_-L
 

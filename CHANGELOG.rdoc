@@ -1,3 +1,6 @@
+=== 0.8.5
+* Support 256 color on windows' ConEmu
+
 === 0.8.4
 * Fix post-install message unicode
 
