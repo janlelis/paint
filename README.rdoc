@@ -1,6 +1,6 @@
 Paint manages terminal colors and effects for you. It combines the strengths of gems like term-ansicolor or rainbow into a simple to use, but still flexible colorizer with no core extensions by default.
 
-[![[travis]](https://travis-ci.org/janlelis/paint.png)](https://travis-ci.org/janlelis/paint)
+{<img src="https://travis-ci.org/janlelis/paint.png" />}[https://travis-ci.org/janlelis/paint]
 
 == Features
 * No string extensions (suitable for library development)
