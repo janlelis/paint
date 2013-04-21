@@ -1,3 +1,6 @@
+=== 0.8.6
+* Add missing require 'rbconfig' and travis test everything
+
 === 0.8.5
 * Support 256 color on windows' ConEmu
 
