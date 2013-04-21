@@ -1,3 +1,5 @@
+require 'rbconfig'
+
 module Paint
   # These helpers add functionality you sometimes need when working with terminal colors
   class << self
