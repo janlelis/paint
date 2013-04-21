@@ -1,14 +1,15 @@
-Paint manages terminal colors and effects for you. It combines the strengths of gems like term-ansicolor or rainbow into a simple to use, but still flexible colorizer with no core extensions by default.
-
 {<img src="https://travis-ci.org/janlelis/paint.png" />}[https://travis-ci.org/janlelis/paint]
 
+Paint manages terminal colors and effects for you. It combines the strengths of *term-ansicolor*, *rainbow* and other similar projects into a simple to use, however still flexible terminal colorization gem with no core extensions by default.
+
 == Features
+
 * No string extensions (suitable for library development)
 * Supports setting 256 colors (for capable terminals)
 * Supports setting any effects (although most terminals won't support it)
 * Simple to use
 * Custom shortcuts can be defined and flexibly mixed in
-* Fall-back modes for non-256-color terminals (Paint.mode), supported modes:
+* Fall-back modes for non-256-color terminals (<tt>Paint.mode</tt>), supported modes:
   * 256 colors
   * 16 colors (only ansi colors, combined with bright effect)
   * 8 colors (only ansi colors)
@@ -28,7 +29,7 @@ In Ruby do:
 
 The only method you need to know to get started is: <tt>Paint.[]</tt>
 
-The first argument given to Paint.[] is the string to colorize (if the object is not a string, to_s will be called on the object). The other arguments describe how to modify/colorize the string. Let's learn by example:
+The first argument given to <tt>Paint.[]</tt> is the string to colorize (if the object is not a string, <tt>to_s</tt> will be called on the object). The other arguments describe how to modify/colorize the string. Let's learn by example:
 
   Paint['Ruby', :red]           # sets ansi color red
   Paint['Ruby', :red, :bright]  # also applies bright/bold effect
@@ -47,10 +48,11 @@ The first argument given to Paint.[] is the string to colorize (if the object is
 
 If you pass multiple colors, the first one is taken as foreground color and the second one defines the background color (all others will be ignored). To only change the background color, you have to pass a <tt>nil</tt> first. Effects can be passed in any order.
 
-To see more examples, checkout the specs.
+You can find more examples in the specs.
 
 == Windows Support
-To enjoy colorful terminals on Windows OS, you can use {ansicon}[https://github.com/adoxa/ansicon] or {ConEmu}[http://code.google.com/p/conemu-maximus5/].
+
+For ANSI support in Windows OS, you can use {ansicon}[https://github.com/adoxa/ansicon] or {ConEmu}[http://code.google.com/p/conemu-maximus5/].
 
 == More details about terminal colors and effects
 
@@ -62,9 +64,9 @@ When combined with the <tt>:bright</tt> (= <tt>:bold</tt>) effect, the color in 
 
 Through special sequences it's also possible to set 256-colors, instead of 8, which is also supported by many - but not all - terminals. Paint automatically translates given rgb colors to a suitable color of the 256 available colors.
 
-When using the <tt>Paint.[]</tt> method, Paint wraps the given string between the calculated escape sequence and an reset sequence (<tt>"\e[0m"</tt>). You can directly get only the escape sequence by using the <tt>Paint.color</tt> method.
+When using the <tt>Paint.[]</tt> method, Paint wraps the given string between the calculated escape sequence and an reset sequence (<tt>"\e[0m"</tt>). You can get the raw escape sequence by using the <tt>Paint.color</tt> method.
 
-=== Effects (without colors)
+=== Effects
 
 Also see {en.wikipedia.org/wiki/ANSI_escape_code}[http://en.wikipedia.org/wiki/ANSI_escape_code]:
 
@@ -102,17 +104,17 @@ Also see {en.wikipedia.org/wiki/ANSI_escape_code}[http://en.wikipedia.org/wiki/A
 
 == Paint.mode
 
-You can choose between three ways to use <tt>Paint.[]</tt> by setting <tt>Paint.mode</tt> to one of the following:
+You can choose between four ways to use <tt>Paint.[]</tt> by setting <tt>Paint.mode</tt> to one of the following:
 * 256:   full support
 * 16:    don't use 256 colors, but the ansi eight ones (combined with bright effect)
 * 8:     don't use 256 colors, but the ansi eight ones
 * 0:     don't colorize at all
 
-Paint tries to detect automatically the proper value, but this is still experimental. Please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value for you.
+Paint tries to automatically detect the proper value, please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value for you.
 
 == Advanced Usage: Shortcuts
 
-Now for the fancy part: Color shortcuts for your gems and scripts! Note: You don't have to use them (and only stick to <tt>Paint.[]</tt>) ;)
+Now for the fancy part: You can create color shortcuts for your gems and scripts! Note: You don't have to use this feature (and only stick to <tt>Paint.[]</tt> instead) ;)
 
 It's easy: Just setup a hash of symbol keys and escape string values at: <tt>Paint::SHORTCUTS[:your_namespace]</tt>. They are stored directly as escape sequences for performance reasons (this also means, you need different namespaces for different <tt>Paint.mode</tt>s). Example:
 
@@ -161,21 +163,13 @@ Another helper method is <tt>Paint.unpaint</tt>, which removes any ansi colors:
 
   Paint.unpaint( Paint['J-_-L', :red, :bright] ).should == 'J-_-L'
 
-== Todos
-=== Maybe
+== J-_-L
 
-* 24-bit color support (konsole), see http://www.reddit.com/r/programming/comments/6gxnp/making_the_most_of_colour_on_text_consoles/c03t8k8
-* Complete the few missing specs
-
-== Credits
-
-Copyright (c) 2011-2012 Jan Lelis, http://rbjl.net, released under the MIT license.
+Copyright (c) 2011-2013 Jan Lelis, http://rbjl.net, released under the MIT license.
 
 Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor].
 
 Contributions[https://github.com/janlelis/paint/contributors] by and thanks to:
 * {murphy}[https://github.com/rubychan]
 * {CyberShadow}[https://github.com/CyberShadow]
-
-== J-_-L
 
