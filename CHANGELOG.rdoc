@@ -1,3 +1,6 @@
+=== 0.8.7
+* Fix caching bug for random ansi color
+
 === 0.8.6
 * Add missing require 'rbconfig' and travis test everything
 

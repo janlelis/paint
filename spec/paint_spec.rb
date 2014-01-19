@@ -47,8 +47,12 @@ describe 'Paint.[]' do
     it 'colorizes using a random ansi foreground color' do
       Paint['J-_-L', :random].should =~ /\e\[3\dmJ-_-L\e\[0m/
     end
+
+    it 'does not cache randomness' do
+      (0..99).map{ Paint['J-_-L', :random] }.uniq.size.should > 1
+    end
   end
-  
+
   context '(with two colors)' do
     it 'interprets the first color as foreground color and the second one as background color' do
       Paint['J-_-L', :yellow, :red].should == "\e[33;41mJ-_-L\e[0m"

@@ -85,11 +85,11 @@ module Paint
     # See README.rdoc for details
     def [](string, *options)
       return string.to_s if mode.zero? || options.empty?
-      
+
       if options.size == 1 && !options.first.respond_to?(:to_ary)
         options = options.first
       end
-      
+
       cache[options] + string.to_s + NOTHING
     end
 
@@ -140,12 +140,12 @@ module Paint
 
         when nil
           color_seen = :set
-        
+
         else
           raise ArgumentError, "Invalid argument: #{ option.inspect }"
 
         end
-        
+
         if color_seen == :set
           colors = ANSI_COLORS_BACKGROUND
           color_seen = true
@@ -214,11 +214,14 @@ module Paint
     end
 
     private
-    
+
     def cache
-      @cache ||= Hash.new { |h, k| h[k] = color(*k) }
+      return @cache if @cache
+      @cache = Hash.new { |h, k| h[k] = color(*k) }
+      def @cache.[](*k) k.include?(:random) ? Paint.color(*k) : super end
+      @cache
     end
- 
+
     # Returns nearest supported 256-color an rgb value, without fore-/background information
     # Inspired by the rainbow gem
     def rgb_value(red, green, blue)
