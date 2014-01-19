@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'rubygems' unless defined? Gem
 require File.dirname(__FILE__) + "/lib/paint/version"
- 
+
 Gem::Specification.new do |s|
   s.name        = "paint"
   s.version     = Paint::VERSION
@@ -11,15 +11,15 @@ Gem::Specification.new do |s|
   s.summary     = "Terminal painter!"
   s.description = "Terminal painter / no string extensions / 256 color support / effect support / define custom shortcuts / basic usage: Paint['string', :red, :bright]"
   s.required_ruby_version     = '>= 1.8.7'
-  s.files = Dir.glob(%w[{lib,test,spec}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c}]) + %w{Rakefile paint.gemspec .gemtest}
+  s.files = Dir.glob(%w[{lib,test,spec}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c}]) + %w{Rakefile paint.gemspec}
   s.extra_rdoc_files = ["README.rdoc", "LICENSE.txt"]
   s.license = 'MIT'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rspec-core'
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'rainbow'
+  s.add_development_dependency 'rainbow', '1.1.4'
   s.add_development_dependency 'term-ansicolor'
- 
+
   len = s.homepage.size
   s.post_install_message = \
    ("       ┌── " + "info ".ljust(len-2,'%')            + "─┐\n" +
