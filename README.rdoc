@@ -29,7 +29,7 @@ In Ruby do:
 
 The only method you need to know to get started is: <tt>Paint.[]</tt>
 
-The first argument given to <tt>Paint.[]</tt> is the string to colorize (if the object is not a string, <tt>to_s</tt> will be called on the object). The other arguments describe how to modify/colorize the string. Let's learn by example:
+The first argument given to <tt>Paint.[]</tt> is the string to colorize (if the object is not a string, <tt>to_s</tt> will be called on it). The other arguments describe how to modify/colorize the string. Let's learn by example:
 
   Paint['Ruby', :red]           # sets ansi color red
   Paint['Ruby', :red, :bright]  # also applies bright/bold effect
@@ -46,7 +46,7 @@ The first argument given to <tt>Paint.[]</tt> is the string to colorize (if the 
   Paint['Ruby', :italic, :encircle, :rapid_blink, :overline] # probably not supported effects
   Paint['Ruby']                 # don't pass any argument and the string will not be changed
 
-If you pass multiple colors, the first one is taken as foreground color and the second one defines the background color (all others will be ignored). To only change the background color, you have to pass a <tt>nil</tt> first. Effects can be passed in any order.
+When you pass multiple colors, the first one is taken as foreground color and the second one defines the background color, every other will be ignored. To only change the background color, you have to pass a <tt>nil</tt> first. Effects can be passed in any order.
 
 You can find more examples in the specs.
 
@@ -161,7 +161,7 @@ There are some supporting methods available. You can get a <tt>p</tt> like alter
 
 Another helper method is <tt>Paint.unpaint</tt>, which removes any ansi colors:
 
-  Paint.unpaint( Paint['J-_-L', :red, :bright] ).should == 'J-_-L'
+  Paint.unpaint( Paint['Ruby', :red, :bright] ).should == 'Ruby'
 
 == J-_-L
 
