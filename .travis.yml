@@ -10,7 +10,7 @@ rvm:
 - 1.9.2
 - 1.8.7
 - ree
-- rbx
+- rbx-2
 - jruby-head
 - jruby-19mode
 
