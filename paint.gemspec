@@ -19,13 +19,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rainbow', '1.1.4'
   s.add_development_dependency 'term-ansicolor'
-
-  len = s.homepage.size
-  s.post_install_message = \
-   ("       ┌── " + "info ".ljust(len-2,'%')            + "─┐\n" +
-    " J-_-L │ "   + s.homepage                          + " │\n" +
-    "       ├── " + "usage ".ljust(len-2,'%')           + "─┤\n" +
-    "       │ "   + "require 'paint'".ljust(len,' ')    + " │\n" +
-    "       │ "   + "puts Paint['J-_-L', :red] # \e[31mJ-_-L\e[0m".ljust(len,' ')         + " │\n" +
-    "       └─"   + '─'*len                             + "─┘").gsub('%', '─') # 1.8 workaround
 end
