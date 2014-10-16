@@ -7,7 +7,7 @@ module Paint
   autoload :RGB_COLORS_ANSI, 'paint/rgb_colors_ansi'
 
   # Important purpose
-  NOTHING = "\033[0m"
+  NOTHING = "\033[0m".freeze
 
   # Basic colors (often, the color differs when using the bright effect)
   # Final color will be 30 + value for foreground and 40 + value for background
@@ -21,7 +21,7 @@ module Paint
     :cyan    => 6,
     :white   => 7,
     :default => 9,
-  }
+  }.freeze
 
   # Terminal effects - most of them are not supported ;)
   # See http://en.wikipedia.org/wiki/ANSI_escape_code
@@ -52,33 +52,33 @@ module Paint
     :overline      => 53,
     :frame_off     => 54, :encircle_off    => 54,
     :overline_off  => 55,
-  }
+  }.freeze
 
   # cache
   ANSI_COLORS_FOREGROUND = {
-    :black   => '30',
-    :red     => '31',
-    :green   => '32',
-    :yellow  => '33',
-    :blue    => '34',
-    :magenta => '35',
-    :cyan    => '36',
-    :white   => '37',
-    :default => '39',
-  }
+    :black   => 30,
+    :red     => 31,
+    :green   => 32,
+    :yellow  => 33,
+    :blue    => 34,
+    :magenta => 35,
+    :cyan    => 36,
+    :white   => 37,
+    :default => 39,
+  }.freeze
 
   # cache
   ANSI_COLORS_BACKGROUND = {
-    :black   => '40',
-    :red     => '41',
-    :green   => '42',
-    :yellow  => '43',
-    :blue    => '44',
-    :magenta => '45',
-    :cyan    => '46',
-    :white   => '47',
-    :default => '49',
-  }
+    :black   => 40,
+    :red     => 41,
+    :green   => 42,
+    :yellow  => 43,
+    :blue    => 44,
+    :magenta => 45,
+    :cyan    => 46,
+    :white   => 47,
+    :default => 49,
+  }.freeze
 
   class << self
     # Takes a string and color options and colorizes the string
