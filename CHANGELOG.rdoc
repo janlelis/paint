@@ -1,3 +1,6 @@
+=== master
+* Freeze bundled ascii color data
+
 === 0.8.7
 * Fix caching bug for random ansi color
 
