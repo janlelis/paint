@@ -42,15 +42,6 @@ task :gemspec do
   gemspec.validate
 end
 
-#Rake::RDocTask.new do |rdoc|
-#  require File.expand_path( File.join( 'lib',  'paint') )
-#
-#  rdoc.rdoc_dir = 'doc'
-#  rdoc.title = "paint #{Paint::VERSION}"
-#  rdoc.rdoc_files.include('README*')
-#  rdoc.rdoc_files.include('lib/**/*.rb')
-#end
-
 desc "Run a Benchmark"
 task :benchmark do
   require 'benchmark'
@@ -58,11 +49,11 @@ task :benchmark do
   class String
     include Term::ANSIColor
   end
-  
+
   require 'rainbow'
   $:.unshift '../lib'
   require 'paint'
-  
+
   n = 100_000
   colors = [:black, :red, :green, :yellow, :blue, :magenta, :cyan]
   def colors.next
@@ -71,7 +62,7 @@ task :benchmark do
   end
   Benchmark.bmbm 30 do |results|
     string = 'Ruby is awesome!'
-    
+
     results.report 'cycle' do
       n.times do
         colors.next
@@ -83,16 +74,16 @@ task :benchmark do
         Paint[string, colors.next]
       end
     end
-    
+
     results.report 'term-ansicolor' do
       n.times do
         string.send(colors.next)
       end
     end
-    
+
     results.report 'rainbow' do
       n.times do
-        string.color(colors.next)
+        Rainbow(string).color(colors.next)
       end
     end
 
@@ -107,10 +98,10 @@ task :benchmark do
         string.send(colors.next).send("on_#{colors.next}")
       end
     end
-    
+
     results.report 'rainbow with background' do
       n.times do
-        string.color(colors.next).background(colors.next)
+        Rainbow(string).color(colors.next).background(colors.next)
       end
     end
   end
