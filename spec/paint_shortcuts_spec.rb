@@ -11,11 +11,11 @@ describe 'Paint::SHORTCUTS' do
 
   context 'Paint::Example.method_missing' do
     it 'returns a color defined in the SHORTCUTS hash under the :example key' do
-      Paint::Example.red == "\e[31m"
+      Paint::Example.red.should == "\e[31;1m"
     end
 
     it 'returns a color defined in the SHORTCUTS hash under the :some_module key; method takes string to colorize' do
-      Paint::Example.red 'J-_-L' == "\e[31;1mJ-_-L\e[0m"
+      Paint::Example.red('J-_-L').should == "\e[31;1mJ-_-L\e[0m"
     end
   end
 
