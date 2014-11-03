@@ -7,6 +7,8 @@ describe 'Paint::SHORTCUTS' do
       :red => Paint.color(:red, :bright),
       :title => Paint.color(:underline),
     }
+
+    Paint.mode = 256
   end
 
   context 'Paint::Example.method_missing' do
@@ -17,9 +19,17 @@ describe 'Paint::SHORTCUTS' do
     it 'returns a color defined in the SHORTCUTS hash under the :some_module key; method takes string to colorize' do
       Paint::Example.red('J-_-L').should == "\e[31;1mJ-_-L\e[0m"
     end
+
+    context 'Paint.mode is 0' do
+      before do
+        Paint.mode = 0
+      end
+
+      it "doesn't colorize a string passed into a color defined in the SHORTCUTS hash under the :some_module key" do
+        Paint::Example.red('J-_-L').should == 'J-_-L'
+      end
+    end
   end
-
-
 
   context 'include Paint::Example::String' do
     it 'adds shortcuts methods that colorize self' do
