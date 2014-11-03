@@ -1,7 +1,5 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-# TODO fix include specs, probably failing because of some rspec voodoo
-
 describe 'Paint::SHORTCUTS' do
   before do
     Paint::SHORTCUTS[:example] = {
@@ -21,20 +19,15 @@ describe 'Paint::SHORTCUTS' do
     end
   end
 
-  context 'include Paint::Example' do
-    include Paint::Example
-    #red.should == "\e[31;1m"
-    #white( 'Ruby' ).should "\e[30m"
-  end
 
 
   context 'include Paint::Example::String' do
     it 'adds shortcuts methods that colorize self' do
-      class MyString < String # could also have used original String
+      class MyString < String
         include Paint::Example::String
       end
 
-      # MyString.new("J-_-L").red.should == "\e[31;1mJ-_-L\e[0m"
+      MyString.new("J-_-L").red.should == "\e[31;1mJ-_-L\e[0m"
     end
 
     it 'adds shortcuts methods that colorize self (also works for non-String classes by calling to_s)' do
@@ -42,7 +35,8 @@ describe 'Paint::SHORTCUTS' do
       class Integer
         include Paint::Example::String
       end
-      #123.red.should == "\e[38;5;226m123\e[0m"
+
+      123.red.should == "\e[31;1m123\e[0m"
     end
   end
 
@@ -51,7 +45,8 @@ describe 'Paint::SHORTCUTS' do
       class Object
         include Paint::Example::Prefix::ExampleName
       end
-      #"Ruby".example_name(:red).should == "\e[31;1mRuby\e[0m"
+
+      "Ruby".example_name(:red).should == "\e[31;1mRuby\e[0m"
     end
   end
 end
