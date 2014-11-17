@@ -23,7 +23,14 @@ module Paint
       # mod.define_singleton_method :method_missing do |color_name, *args|
       eigen_mod.send:define_method, :method_missing do |color_name, *args|
         if color_code = shortcuts[color_name]
-          if args.empty? then color_code else color_code + Array(args).join + NOTHING end
+          string = Array(args).join
+          return string if Paint.mode.zero?
+
+          if args.empty?
+            color_code
+          else
+            color_code + string + NOTHING
+          end
         else
           nil
         end
@@ -37,7 +44,14 @@ module Paint
       eigen_mod.send:define_method, :included do |_|
         shortcuts.each{ |color_name, color_code|
           define_method color_name do |*args|
-            if args.empty? then color_code else color_code + Array(args).join + NOTHING end
+            string = Array(args).join
+            return string if Paint.mode.zero?
+
+            if args.empty?
+              color_code
+            else
+              color_code + string + NOTHING
+            end
           end
         }
         private(*shortcuts.keys) unless shortcuts.empty?
@@ -50,7 +64,11 @@ module Paint
       eigen_string.send:define_method, :included do |_|
         shortcuts.each{ |color_name, color_code|
           define_method color_name do
-            color_code + to_s + NOTHING
+            if Paint.mode.zero?
+              to_s
+            else
+              color_code + to_s + NOTHING
+            end
           end
         }
       end
@@ -66,7 +84,13 @@ module Paint
 
         eigen_prefix.send:define_method, :included do |_|
           define_method prefix_name.to_s.gsub(/[A-Z]/,'_\0').downcase[1..-1].to_sym do |color_name|
-            shortcuts[color_name] && shortcuts[color_name] + to_s + NOTHING
+            if color_code = shortcuts[color_name]
+              return to_s if Paint.mode.zero?
+
+              color_code + to_s + NOTHING
+            else
+              nil
+            end
           end
         end
 

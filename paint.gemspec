@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.files = Dir.glob(%w[{lib,test,spec}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c}]) + %w{Rakefile paint.gemspec}
   s.extra_rdoc_files = ["README.rdoc", "LICENSE.txt"]
   s.license = 'MIT'
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rspec-core'
+
+  s.add_development_dependency 'rspec', '>= 3'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rainbow', '1.1.4'
   s.add_development_dependency 'term-ansicolor'
