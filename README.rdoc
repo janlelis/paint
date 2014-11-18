@@ -1,4 +1,4 @@
-{<img src="https://travis-ci.org/janlelis/paint.png" />}[https://travis-ci.org/janlelis/paint]
+= Ruby Paint {<img src="https://travis-ci.org/janlelis/paint.png" />}[https://travis-ci.org/janlelis/paint]
 
 Paint manages terminal colors and effects for you. It combines the strengths of *term-ansicolor*, *rainbow* and other similar projects into a simple to use, however still flexible terminal colorization gem with no core extensions by default.
 
@@ -20,6 +20,12 @@ Paint manages terminal colors and effects for you. It combines the strengths of 
 Install with:
 
   gem install paint
+
+Or add to Gemfile:
+
+  gem 'paint'
+
+and run `bundle install`
 
 In Ruby do:
 
@@ -165,11 +171,10 @@ Another helper method is <tt>Paint.unpaint</tt>, which removes any ansi colors:
 
 == J-_-L
 
-Copyright (c) 2011-2013 Jan Lelis, http://rbjl.net, released under the MIT license.
+Copyright (c) 2011-2014 Jan Lelis <http://janlelis.com>, released under the MIT license.
 
-Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor].
-
-Contributions[https://github.com/janlelis/paint/contributors] by and thanks to:
-* {murphy}[https://github.com/rubychan]
+Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor]. Contributors[https://github.com/janlelis/paint/contributors]:
 * {CyberShadow}[https://github.com/CyberShadow]
-
+* {korun}[https://github.com/korun]
+* {mhaylock}[https://github.com/mhaylock]
+* {korny}[https://github.com/rubychan]

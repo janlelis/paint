@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "Terminal painter / no string extensions / 256 color support / effect support / define custom shortcuts / basic usage: Paint['string', :red, :bright]"
   s.required_ruby_version     = '>= 1.8.7'
   s.files = Dir.glob(%w[{lib,test,spec}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c}]) + %w{Rakefile paint.gemspec}
-  s.extra_rdoc_files = ["README.rdoc", "LICENSE.txt"]
+  s.extra_rdoc_files = ["README.rdoc", "MIT-LICENSE.txt"]
   s.license = 'MIT'
 
   s.add_development_dependency 'rspec', '>= 3'
