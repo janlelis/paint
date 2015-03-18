@@ -1,4 +1,4 @@
-= Ruby Paint {<img src="https://travis-ci.org/janlelis/paint.png" />}[https://travis-ci.org/janlelis/paint]
+= Ruby Paint {<img src="https://badge.fury.io/rb/paint.svg" />}[http://badge.fury.io/rb/paint] {<img src="https://travis-ci.org/janlelis/paint.png" />}[https://travis-ci.org/janlelis/paint]
 
 Paint manages terminal colors and effects for you. It combines the strengths of *term-ansicolor*, *rainbow* and other similar projects into a simple to use, however still flexible terminal colorization gem with no core extensions by default.
 
@@ -171,7 +171,7 @@ Another helper method is <tt>Paint.unpaint</tt>, which removes any ansi colors:
 
 == J-_-L
 
-Copyright (c) 2011-2014 Jan Lelis <http://janlelis.com>, released under the MIT license.
+Copyright (c) 2011-2015 Jan Lelis <http://janlelis.com>, released under the MIT license.
 
 Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor]. Contributors[https://github.com/janlelis/paint/contributors]:
 * {CyberShadow}[https://github.com/CyberShadow]

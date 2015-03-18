@@ -1,3 +1,6 @@
+=== 1.0.0 (master)
+* ...
+
 === 0.9.0
 * Don't colorize strings via shortcuts when Paint.mode == 0
 * Freeze bundled ascii color data
