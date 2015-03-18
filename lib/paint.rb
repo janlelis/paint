@@ -1,6 +1,6 @@
-require 'paint/version'  unless defined? Paint::VERSION
-require 'paint/shortcuts'unless defined? Paint::SHORTCUTS
-require 'paint/util'
+require_relative 'paint/version'
+require_relative 'paint/util'
+
 
 module Paint
   autoload :RGB_COLORS, 'paint/rgb_colors'

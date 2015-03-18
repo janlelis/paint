@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require 'rubygems' unless defined? Gem
+
 require File.dirname(__FILE__) + "/lib/paint/version"
 
 Gem::Specification.new do |s|
@@ -9,14 +9,30 @@ Gem::Specification.new do |s|
   s.email       = "mail@janlelis.de"
   s.homepage    = "https://github.com/janlelis/paint"
   s.summary     = "Terminal painter!"
-  s.description = "Terminal painter / no string extensions / 256 color support / effect support / define custom shortcuts / basic usage: Paint['string', :red, :bright]"
-  s.required_ruby_version     = '>= 1.9.3'
-  s.files = Dir.glob(%w[{lib,test,spec}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c}]) + %w{Rakefile paint.gemspec}
-  s.extra_rdoc_files = ["README.rdoc", "MIT-LICENSE.txt"]
+  s.description = "Terminal painter: No string extensions / 256 color support / effect support. Usage: Paint['string', :red, :bright]"
   s.license = 'MIT'
 
-  s.add_development_dependency 'rspec', '>= 3'
-  s.add_development_dependency 'rake'
+  s.files = %w[
+    paint.gemspec
+    Rakefile
+    .rspec
+    .travis.yml
+    lib/paint.rb
+    lib/paint/pa.rb
+    lib/paint/rgb_colors.rb
+    lib/paint/rgb_colors_ansi.rb
+    lib/paint/util.rb
+    lib/paint/version.rb
+  ]
+  s.extra_rdoc_files = %w[
+    README.rdoc
+    CHANGELOG.rdoc
+    MIT-LICENSE.txt
+  ]
+
+  s.required_ruby_version = '>= 1.9.3'
+  s.add_development_dependency 'rspec', '~> 3.2'
+  s.add_development_dependency 'rake', '~> 10.4'
   s.add_development_dependency 'rainbow', '1.1.4'
   s.add_development_dependency 'term-ansicolor'
 end

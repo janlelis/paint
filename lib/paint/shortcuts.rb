@@ -1,6 +1,9 @@
+require_relative 'shortcuts_version'
+
+require 'paint'
+
 module Paint
   # Hash for defining color/effect shortcuts
-  # See README for details
   SHORTCUTS = {
     # :example => {                    # would create a Paint::Example constant...
     #   :light_red     => "\e[31;1m",  # with a method .light_red
@@ -97,10 +100,7 @@ module Paint
         prefix
       end
 
-      # :)
       mod
     end
   end
 end
-
-# J-_-L

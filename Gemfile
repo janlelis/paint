@@ -1,7 +1,4 @@
 source 'https://rubygems.org'
 
-gemspec
-
-platform :rbx do
-  gem 'rubysl-singleton'
-end
+gemspec name: 'paint'
+gemspec name: 'paint-shortcuts'

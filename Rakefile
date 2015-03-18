@@ -1,12 +1,10 @@
-GEMSPEC = 'paint.gemspec'
-
-#require 'rake'
-#require 'rake/rdoctask'
 require 'fileutils'
 require 'rspec/core/rake_task'
 
-task :default => :spec
-task :test    => :spec
+gemspecs = %w[
+  paint.gemspec
+  paint-shortcuts.gemspec
+]
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = [
@@ -16,30 +14,29 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   ]
 end
 
-def gemspec
-  @gemspec ||= eval(File.read(GEMSPEC), binding, GEMSPEC)
+task :default => :spec
+task :test    => :spec
+
+def gemspec_spec_for(gemspec)
+  eval(File.read(gemspec), binding, gemspec)
 end
 
-desc "Build the gem"
-task :gem => :gemspec do
-  sh "gem build #{GEMSPEC}"
+desc "Build the gems"
+task :gems do
   FileUtils.mkdir_p 'pkg'
-  FileUtils.mv "#{gemspec.name}-#{gemspec.version}.gem", 'pkg'
+  gemspecs.each{ |gemspec|
+    sh "gem build #{gemspec}"
+    spec = gemspec_spec_for(gemspec)
+    FileUtils.mv "#{spec.name}-#{spec.version}.gem", 'pkg'
+  }
 end
 
 desc "Install the gem locally"
-task :install => :gem do
-  sh %{gem install pkg/#{gemspec.name}-#{gemspec.version}.gem --no-rdoc --no-ri}
-end
-
-desc "Generate the gemspec"
-task :generate do
-  puts gemspec.to_ruby
-end
-
-desc "Validate the gemspec"
-task :gemspec do
-  gemspec.validate
+task :install => :gems do
+  gemspecs.each{ |gemspec|
+    spec = gemspec_spec_for(gemspec)
+    sh %{gem install pkg/#{spec.name}-#{spec.version}.gem --no-rdoc --no-ri}
+  }
 end
 
 desc "Run a Benchmark"
