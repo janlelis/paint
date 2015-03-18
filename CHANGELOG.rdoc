@@ -1,5 +1,5 @@
 === 1.0.0 (master)
-* ...
+* Drop support for Ruby 1 (inoffically still support 1.9.3)
 
 === 0.9.0
 * Don't colorize strings via shortcuts when Paint.mode == 0
