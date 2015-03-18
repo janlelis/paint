@@ -1,5 +1,7 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
+require 'paint/shortcuts'
+
 describe 'Paint::SHORTCUTS' do
   before do
     Paint::SHORTCUTS[:example] = {
