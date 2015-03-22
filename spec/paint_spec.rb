@@ -45,11 +45,15 @@ describe 'Paint.[]' do
     end
 
     it 'colorizes using a random ansi foreground color' do
-      Paint['J-_-L', :random].should =~ /\e\[3\dmJ-_-L\e\[0m/
+      Paint['J-_-L', Paint.random].should =~ /\e\[3\dmJ-_-L\e\[0m/
     end
 
     it 'does not cache randomness' do
-      (0..99).map{ Paint['J-_-L', :random] }.uniq.size.should > 1
+      (0..99).map{ Paint['J-_-L', Paint.random] }.uniq.size.should > 1
+    end
+
+    it 'does not cache background randomness' do
+      (0..99).map{ Paint['J-_-L', Paint.random(true)] }.uniq.size.should > 1
     end
   end
 

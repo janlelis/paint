@@ -109,9 +109,6 @@ module Paint
             color_seen = :set
           elsif ANSI_EFFECTS.key?(option)
             mix << effect(option)
-          elsif option == :random
-            mix << random(color_seen)
-            color_seen = :set
           else
             raise ArgumentError, "Unknown color or effect: #{ option }"
           end
@@ -216,8 +213,6 @@ module Paint
     def cache
       return @cache if @cache
       @cache = Hash.new { |h, k| h[k] = color(*k) }
-      def @cache.[](*k) k.include?(:random) ? Paint.color(*k) : super end
-      @cache
     end
 
     # Returns nearest supported 256-color an rgb value, without fore-/background information

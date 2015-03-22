@@ -39,7 +39,6 @@ The first argument given to <tt>Paint.[]</tt> is the string to colorize (if the 
   Paint['Ruby', "gold", "snow"] # Paint supports rgb.txt color names, note that the arguments are strings (:yellow != "yellow")!
   Paint['Ruby', "#123456"]      # html like definitions are possible.
   Paint['Ruby', "fff"]          # another html hex definition
-  Paint['Ruby', :random]        # pass :random to get one of eight random ansi foreground colors
   Paint['Ruby', :inverse]       # swaps fore- and background
   Paint['Ruby', :italic, :encircle, :rapid_blink, :overline] # probably not supported effects
   Paint['Ruby']                 # don't pass any argument and the string will not be changed
@@ -106,7 +105,14 @@ You can choose between four ways to use <tt>Paint.[]</tt> by setting <tt>Paint.m
 
 Paint tries to automatically detect the proper value, please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value for you.
 
-=== Utilities
+== Random ANSI colors
+
+With 1.0, the :random feature was removed, because it interfered with the caching mechanism. If you still need it, you will have to workaround by generating random colors yourself, before passing them into the Paint method:
+
+  Paint['Ruby', Paint.random]        # get one of eight random ansi foreground colors
+  Paint['Ruby', Paint.random(true)]  # get one of eight random ansi background colors
+
+== Utilities
 There are some supporting methods available. You can get a <tt>p</tt> like alternative for calling <tt>puts Paint.[]</tt>:
 
   require 'paint/pa'

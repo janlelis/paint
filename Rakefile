@@ -48,8 +48,7 @@ task :benchmark do
   end
 
   require 'rainbow'
-  $:.unshift '../lib'
-  require 'paint'
+  require_relative 'lib/paint'
 
   n = 100_000
   colors = [:black, :red, :green, :yellow, :blue, :magenta, :cyan]
