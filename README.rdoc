@@ -7,6 +7,7 @@ Paint manages terminal colors and effects for you. It combines the strengths of 
 * Supports setting 256 colors (for capable terminals)
 * Supports setting any effects (although most terminals won't support it)
 * Simple to use
+* Faster than most similar gems due to caching
 * Fall-back modes for non-256-color terminals (<tt>Paint.mode</tt>), supported modes:
   * 256 colors
   * 16 colors (only ansi colors, combined with bright effect)
