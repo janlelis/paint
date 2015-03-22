@@ -118,7 +118,7 @@ module Paint
 
         when Array
           if option.size == 3 && option.all?{ |n| n.is_a? Numeric }
-            mix << rgb(*(option + [color_seen])) # 1.8 workaround
+            mix << rgb(*[*option, color_seen])
             color_seen = :set
           else
             raise ArgumentError, "Array argument must contain 3 numerals"
@@ -186,20 +186,18 @@ module Paint
     # Creates 256-compatible color from a html-like color string
     def hex(string, background = false)
       string.tr! '#',''
-      rgb(
-       *(if string.size == 6
-          # string.chars.each_cons(2).map{ |hex_color| hex_color.join.to_i(16) }
-          [string[0,2].to_i(16), string[2,2].to_i(16), string[4,2].to_i(16)]
-        else
-          string.chars.map{ |hex_color_half| (hex_color_half*2).to_i(16) }
-        end + [background]) # 1.8 workaround
-      )
+      color_code = if string.size == 6
+        string.each_char.each_slice(2).map{ |hex_color| hex_color.join.to_i(16) }
+      else
+        string.each_char.map{ |hex_color_half| (hex_color_half*2).to_i(16) }
+      end
+      rgb(*[*color_code, background])
     end
 
     # Creates a 256-color from a name found in Paint::RGB_COLORS (based on rgb.txt)
     def rgb_name(color_name, background = false)
       if color_code = RGB_COLORS[color_name]
-        rgb(*(color_code + [background] )) # 1.8 workaround
+        rgb(*[*color_code, background])
       end
     end
 

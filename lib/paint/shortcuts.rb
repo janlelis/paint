@@ -20,11 +20,9 @@ module Paint
       # create module
       class_eval "module #{mod_name}; end"
       mod = const_get(mod_name)
-      eigen_mod = class << mod; self; end # 1.8
 
       # define direct behaviour, class methods
-      # mod.define_singleton_method :method_missing do |color_name, *args|
-      eigen_mod.send:define_method, :method_missing do |color_name, *args|
+      mod.define_singleton_method :method_missing do |color_name, *args|
         if color_code = shortcuts[color_name]
           string = Array(args).join
           return string if Paint.mode.zero?
@@ -39,12 +37,12 @@ module Paint
         end
       end
 
-      eigen_mod.send:define_method, :respond_to? do |color_name, *args|
+      mod.define_singleton_method :respond_to_missing? do |color_name, *args|
         shortcuts.include?(color_name) || super(color_name, *args)
       end
 
       # define include behaviour, instance methods
-      eigen_mod.send:define_method, :included do |_|
+      mod.define_singleton_method :included do |_|
         shortcuts.each{ |color_name, color_code|
           define_method color_name do |*args|
             string = Array(args).join
@@ -63,8 +61,7 @@ module Paint
       # include variations, defined in child modules
       mod.class_eval "module String; end"
       string = mod.const_get(:String)
-      eigen_string = class << string; self; end # 1.8
-      eigen_string.send:define_method, :included do |_|
+      string.define_singleton_method :included do |_|
         shortcuts.each{ |color_name, color_code|
           define_method color_name do
             if Paint.mode.zero?
@@ -79,20 +76,15 @@ module Paint
       # OK, let's take it one level further ;)
       mod.class_eval "module Prefix; end"
       prefix_prefix = mod.const_get(:Prefix)
-      eigen_prefix_prefix = class << prefix_prefix; self; end # 1.8
-      eigen_prefix_prefix.send:define_method, :const_missing do |prefix_name|
+      prefix_prefix.define_singleton_method :const_missing do |prefix_name|
         class_eval "module #{prefix_name}; end"
         prefix = const_get(prefix_name)
-        eigen_prefix = class << prefix; self; end # 1.8
 
-        eigen_prefix.send:define_method, :included do |_|
+        prefix.define_singleton_method :included do |_|
           define_method prefix_name.to_s.gsub(/[A-Z]/,'_\0').downcase[1..-1].to_sym do |color_name|
             if color_code = shortcuts[color_name]
               return to_s if Paint.mode.zero?
-
               color_code + to_s + NOTHING
-            else
-              nil
             end
           end
         end
