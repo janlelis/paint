@@ -6,7 +6,6 @@ module Paint
   autoload :RGB_COLORS, 'paint/rgb_colors'
   autoload :RGB_COLORS_ANSI, 'paint/rgb_colors_ansi'
 
-  # Important purpose
   NOTHING = "\033[0m".freeze
 
   # Basic colors (often, the color differs when using the bright effect)
@@ -54,7 +53,6 @@ module Paint
     :overline_off  => 55,
   }.freeze
 
-  # cache
   ANSI_COLORS_FOREGROUND = {
     :black   => 30,
     :red     => 31,
@@ -67,7 +65,6 @@ module Paint
     :default => 39,
   }.freeze
 
-  # cache
   ANSI_COLORS_BACKGROUND = {
     :black   => 40,
     :red     => 41,
@@ -84,19 +81,14 @@ module Paint
     # Takes a string and color options and colorizes the string
     # See README.rdoc for details
     def [](string, *options)
-      return string.to_s if mode.zero? || options.empty?
-
-      if options.size == 1 && !options.first.respond_to?(:to_ary)
-        options = options.first
-      end
-
-      cache[options] + string.to_s + NOTHING
+      return string.to_s if @mode.zero? || options.empty?
+      options = options.first if options.size == 1 && !options.first.respond_to?(:to_ary)
+      @cache[options] + string.to_s + NOTHING
     end
 
-    # Sometimes, you only need the color
-    # Used by []
+    # Transforms options into the desired color. Used by @cache
     def color(*options)
-      return '' if mode.zero? || options.empty?
+      return '' if @mode.zero? || options.empty?
       mix = []
       color_seen = false
       colors = ANSI_COLORS_FOREGROUND
@@ -158,8 +150,8 @@ module Paint
     # * 16     - only ansi colors and bright effect
     # * 8      - only ansi colors
     # * 0      - no colorization!
-    def mode() @mode ||= detect_mode end
-    def mode=(val) cache.clear; @mode = val end
+    attr_reader :mode
+    def mode=(val) @cache.clear; @mode = val end
 
     # Adds ansi sequence
     def wrap(*ansi_codes)
@@ -173,8 +165,8 @@ module Paint
 
     # Creates a 256-compatible color from rgb values
     def rgb(red, green, blue, background = false)
-      if mode == 8 || mode == 16
-        "#{background ? 4 : 3}#{rgb_like_value(red, green, blue, mode == 16)}"
+      if @mode == 8 || @mode == 16
+        "#{background ? 4 : 3}#{rgb_like_value(red, green, blue, @mode == 16)}"
       else
         "#{background ? 48 : 38}#{rgb_value(red, green, blue)}"
       end
@@ -208,12 +200,29 @@ module Paint
       ANSI_EFFECTS[effect_name]
     end
 
-    private
-
-    def cache
-      return @cache if @cache
-      @cache = Hash.new { |h, k| h[k] = color(*k) }
+    # Determine supported colors
+    def detect_mode
+      if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/ # windows
+        if ENV['ANSICON']
+          16
+        elsif ENV['ConEmuANSI'] == 'ON'
+          256
+        else
+          0
+        end
+      else
+        case ENV['TERM']
+        when /-256color$/, 'xterm'
+          256
+        when /-color$/, 'rxvt'
+          16
+        else # optimistic default
+          256
+        end
+      end
     end
+
+    private
 
     # Returns nearest supported 256-color an rgb value, without fore-/background information
     # Inspired by the rainbow gem
@@ -260,6 +269,10 @@ module Paint
       }
     end
   end
+
+  # init instance vars
+  @mode  = detect_mode
+  @cache = Hash.new{ |h, k| h[k] = color(*k) }
 end
 
 # J-_-L
