@@ -34,6 +34,10 @@ Gem::Specification.new do |s|
   s.requirements = ['Windows: ansicon (https://github.com/adoxa/ansicon) or ConEmu (http://code.google.com/p/conemu-maximus5)']
   s.add_development_dependency 'rspec', '~> 3.2'
   s.add_development_dependency 'rake', '~> 10.4'
-  s.add_development_dependency 'rainbow', '1.1.4'
-  s.add_development_dependency 'term-ansicolor'
+  s.add_development_dependency 'benchmark-ips', '~> 2.3'
+  s.add_development_dependency 'rainbow', '~> 2.0'
+  s.add_development_dependency 'term-ansicolor', '~> 1.3'
+  s.add_development_dependency 'ansi', '~> 1.5'
+  s.add_development_dependency 'hansi', '~> 0.1'
+  s.add_development_dependency 'pastel', '~> 0.5'
 end

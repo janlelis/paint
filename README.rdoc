@@ -4,10 +4,10 @@ Paint manages terminal colors and effects for you. It combines the strengths of 
 
 == Features
 * No string extensions (suitable for library development)
+* Simple API
+* Faster than other terminal color gems ([as of October 2015](https://gist.github.com/janlelis/91413b9295c81ee873dc))
 * Supports setting 256 colors (for capable terminals)
-* Supports setting any effects (although most terminals won't support it)
-* Simple to use
-* Faster than most similar gems due to caching
+* Supports setting any terminal effects
 * Fall-back modes for non-256-color terminals (<tt>Paint.mode</tt>), supported modes:
   * 256 colors
   * 16 colors (only ansi colors, combined with bright effect)
@@ -26,7 +26,7 @@ In Ruby do:
   require 'paint'
 
 == Usage
-The only method you need to know to get started is: <tt>Paint.[]</tt>
+The only method you need to know is: <tt>Paint.[]</tt>
 
 The first argument given to <tt>Paint.[]</tt> is the string to colorize (if the object is not a string, <tt>to_s</tt> will be called on it). The other arguments describe how to modify/colorize the string. Let's learn by example:
 
@@ -106,8 +106,7 @@ You can choose between four ways to use <tt>Paint.[]</tt> by setting <tt>Paint.m
 
 Paint tries to automatically detect the proper value, please open an issue if <tt>Paint.detect_mode</tt> yields a wrong value for you.
 
-== Random ANSI colors
-
+== Random ANSI Colors
 With 1.0, the :random feature was removed, because it interfered with the caching mechanism. If you still need it, you will have to workaround by generating random colors yourself, before passing them into the Paint method:
 
   Paint['Ruby', Paint.random]        # get one of eight random ansi foreground colors
@@ -130,8 +129,4 @@ There is an extension gem available that allows you to define custom color short
 
 Copyright (c) 2011-2015 Jan Lelis <http://janlelis.com>, released under the MIT license.
 
-Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor]. Contributors[https://github.com/janlelis/paint/contributors]:
-* {CyberShadow}[https://github.com/CyberShadow]
-* {korun}[https://github.com/korun]
-* {mhaylock}[https://github.com/mhaylock]
-* {korny}[https://github.com/rubychan]
+Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor]. Also see the list of contributors[https://github.com/janlelis/paint/contributors]
