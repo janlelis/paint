@@ -127,6 +127,6 @@ There is an extension gem available that allows you to define custom color short
 
 == J-_-L
 
-Copyright (c) 2011-2015 Jan Lelis <http://janlelis.com>, released under the MIT license.
+Copyright (c) 2011-2016 Jan Lelis <http://janlelis.com>, released under the MIT license.
 
 Mainly influenced by rainbow[https://github.com/sickill/rainbow] and {term-ansicolor}[https://github.com/flori/term-ansicolor]. Also see the list of contributors[https://github.com/janlelis/paint/contributors]

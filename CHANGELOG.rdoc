@@ -1,3 +1,6 @@
+=== 1.0.1
+* Fix case of string arguments getting mutated (see gh#14)
+
 === 1.0.0
 * Improved performance
 * Option for :random colors removed (see readme)
