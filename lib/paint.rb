@@ -173,8 +173,8 @@ module Paint
     end
 
     # Creates 256-compatible color from a html-like color string
-    def hex(string, background = false)
-      string.tr! '#',''
+    def hex(source, background = false)
+      string = source.tr '#',''
       color_code = if string.size == 6
         string.each_char.each_slice(2).map{ |hex_color| hex_color.join.to_i(16) }
       else

@@ -40,6 +40,12 @@ describe 'Paint.[]' do
       Paint['J-_-L', "#4183C4"].should == "\e[38;5;74mJ-_-L\e[0m"
     end
 
+    it 'does not alter the passed in color string object' do
+      source = '#FFFFFF'
+      Paint['J-_-L', source]
+      source.should == '#FFFFFF'
+    end
+
     it 'understands a non-hex string as rgb color name (rgb.txt) and use it as foreground color' do
       Paint['J-_-L', "medium purple"].should == "\e[38;5;141mJ-_-L\e[0m"
     end
