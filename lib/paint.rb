@@ -77,6 +77,10 @@ module Paint
     :default => 49,
   }.freeze
 
+  HEX_RE = Regexp.compile(/(?<=^|^\#)           # optional, non-matching '#'
+                          (?:[0-9a-f]{3}){1,2}  # 3 or 6 hex chars
+                          $/ix)
+
   class << self
     # Takes a string and color options and colorizes the string
     # See README.rdoc for details
@@ -114,8 +118,9 @@ module Paint
           end
 
         when ::String
-          if option =~ /^#?(?:[0-9a-f]{3}){1,2}$/i
-            mix << hex(option, color_seen)
+          match = HEX_RE.match(option)
+          if match
+            mix << hex(match[0], color_seen)
             color_seen = :set
           else
             mix << rgb_name(option, color_seen)
@@ -146,10 +151,11 @@ module Paint
 
     # This variable influences the color code generation
     # Currently supported values:
-    # * 256    - 256 colors
-    # * 16     - only ansi colors and bright effect
-    # * 8      - only ansi colors
-    # * 0      - no colorization!
+    # * 0xffffff  - 24-bit (~16 million) colors, aka truecolor
+    # * 256       - 256 colors
+    # * 16        - only ansi colors and bright effect
+    # * 8         - only ansi colors
+    # * 0         - no colorization!
     attr_reader :mode
     def mode=(val) @cache.clear; @mode = val end
 
@@ -163,16 +169,18 @@ module Paint
       (background ? 40 : 30) + ANSI_COLORS[color_name]
     end
 
-    # Creates a 256-compatible color from rgb values
+    # If not true_color, creates a 256-compatible color from rgb values,
+    # otherwise, an exact 24-bit color
     def rgb(red, green, blue, background = false)
       if @mode == 8 || @mode == 16
         "#{background ? 4 : 3}#{rgb_like_value(red, green, blue, @mode == 16)}"
       else
-        "#{background ? 48 : 38}#{rgb_value(red, green, blue)}"
+        "#{background ? 48 : 38}#{rgb_value(red, green, blue, @mode == 256)}"
       end
     end
 
-    # Creates 256-compatible color from a html-like color string
+    # If not true_color, creates 256-compatible color from a html-like color string,
+    # otherwise, an exact 24-bit color
     def hex(source, background = false)
       string = source.tr '#',''
       color_code = if string.size == 6
@@ -201,6 +209,7 @@ module Paint
     end
 
     # Determine supported colors
+    # Note: there's no reliable test for 24-bit color support
     def detect_mode
       if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/ # windows
         if ENV['ANSICON']
@@ -225,8 +234,12 @@ module Paint
     private
 
     # Returns nearest supported 256-color an rgb value, without fore-/background information
-    # Inspired by the rainbow gem
-    def rgb_value(red, green, blue)
+    # if approx; otherwise a 24-bit color value (see https://gist.github.com/XVilka/8346728).
+    #
+    # 256-color approximation inspired by the rainbow gem
+    def rgb_value(red, green, blue, approx = true)
+      return ";2;#{red};#{green};#{blue}" unless approx
+
       gray_possible = true
       sep = 42.5
 
