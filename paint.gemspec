@@ -25,8 +25,8 @@ Gem::Specification.new do |s|
     lib/paint/version.rb
   ]
   s.extra_rdoc_files = %w[
-    README.rdoc
-    CHANGELOG.rdoc
+    README.md
+    CHANGELOG.md
     MIT-LICENSE.txt
   ]
 

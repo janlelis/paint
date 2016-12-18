@@ -17,9 +17,9 @@ Gem::Specification.new do |s|
     lib/paint/shortcuts_version.rb
   ]
   s.extra_rdoc_files = %w[
-    README.rdoc
-    SHORTCUTS.rdoc
-    CHANGELOG.rdoc
+    README.md
+    SHORTCUTS.md
+    CHANGELOG.md
     MIT-LICENSE.txt
   ]
 
