@@ -5,6 +5,16 @@ describe 'Paint.[]' do
     Paint.mode = 256
   end
 
+  describe 'truecolor support' do
+    before do
+      Paint.mode = 0xFFFFFF
+    end
+
+    it 'will return a truecolor escape sequence' do
+      Paint['J-_-L', [255, 200, 0]].should == "\e[38;2;255;200;0mJ-_-L\e[0m"
+    end
+  end
+
   context '(with no options)' do
     it "doesn't colorize at all" do
       Paint['J-_-L'].should == "J-_-L"

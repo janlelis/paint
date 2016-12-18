@@ -172,10 +172,15 @@ module Paint
     # If not true_color, creates a 256-compatible color from rgb values,
     # otherwise, an exact 24-bit color
     def rgb(red, green, blue, background = false)
-      if @mode == 8 || @mode == 16
-        "#{background ? 4 : 3}#{rgb_like_value(red, green, blue, @mode == 16)}"
-      else
-        "#{background ? 48 : 38}#{rgb_value(red, green, blue, @mode == 256)}"
+      case @mode
+      when 8
+        "#{background ? 4 : 3}#{rgb_to_ansi(red, green, blue, false)}"
+      when 16
+        "#{background ? 4 : 3}#{rgb_to_ansi(red, green, blue, true)}"
+      when 256
+        "#{background ? 48 : 38}#{rgb_to_256(red, green, blue)}"
+      when 0xFFFFFF
+        "#{background ? 48 : 38}#{rgb_true(red, green, blue)}"
       end
     end
 
@@ -233,11 +238,15 @@ module Paint
 
     private
 
-    # Returns nearest supported 256-color an rgb value, without fore-/background information
-    # if approx; otherwise a 24-bit color value (see https://gist.github.com/XVilka/8346728).
-    #
-    # 256-color approximation inspired by the rainbow gem
-    def rgb_value(red, green, blue, approx = true)
+    # Returns 24-bit color value (see https://gist.github.com/XVilka/8346728)
+    # in ANSI escape sequnce format, without fore-/background information
+    def rgb_true(red, green, blue)
+      ";2;#{red};#{green};#{blue}"
+    end
+
+    # Returns closest supported 256-color an RGB value, without fore-/background information
+    # Inspired by the rainbow gem
+    def rgb_to_256(red, green, blue, approx = true)
       return ";2;#{red};#{green};#{blue}" unless approx
 
       gray_possible = true
@@ -260,13 +269,13 @@ module Paint
       end
     end
 
-    # Returns ansi color matching an rgb value, without fore-/background information
+    # Returns best ANSI color matching an RGB value, without fore-/background information
     # See http://mail.python.org/pipermail/python-list/2008-December/1150496.html
-    def rgb_like_value(red, green, blue, use_bright = false)
+    def rgb_to_ansi(red, green, blue, use_bright = false)
       color_pool =  RGB_COLORS_ANSI.values
       color_pool += RGB_COLORS_ANSI_BRIGHT.values if use_bright
 
-      ansi_color_rgb = color_pool.min_by{ |col| distance([red, green, blue],col) }
+      ansi_color_rgb = color_pool.min_by{ |col| rgb_color_distance([red, green, blue],col) }
       key_method = RUBY_VERSION < "1.9" ? :index : :key
       if ansi_color = RGB_COLORS_ANSI.send(key_method, ansi_color_rgb)
         ANSI_COLORS[ansi_color]
@@ -276,7 +285,7 @@ module Paint
       end
     end
 
-    def distance(rgb1, rgb2)
+    def rgb_color_distance(rgb1, rgb2)
       rgb1.zip(rgb2).inject(0){ |acc, (cur1, cur2)|
         acc + (cur1 - cur2)**2
       }

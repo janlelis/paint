@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'Paint.color' do
-  it 'only returns a the color escape sequnce and is directly used by Paint.[] with all paramenters except the first; see there fore specs' do end
+  it 'only returns a the color escape sequence and is directly used by Paint.[] with all paramenters except the first; see there for specs' do end
 end
 
 describe 'Paint.simple' do
@@ -15,16 +15,32 @@ describe 'Paint.simple' do
 end
 
 describe 'Paint.rgb' do
-  before do
-    Paint.mode = 256
+  context '(256 colors)' do
+    before do
+      Paint.mode = 256
+    end
+
+    it 'returns ANSI code sequence for one of 256 colors' do
+      Paint.rgb(1, 2, 3).should == '38;5;232'
+    end
+
+    it 'returns background ANSI code sequence for one of 256 colors if last parameter is true' do
+      Paint.rgb(1, 2, 3, true).should == '48;5;232'
+    end
   end
 
-  it 'returns ansi code sequence for one of 256 colors' do
-    Paint.rgb(1,2,3).should == '38;5;232'
-  end
+  context '(true colors)' do
+    before do
+      Paint.mode = 0xFFFFFF
+    end
 
-  it 'returns background ansi code sequence for one of 256 colors if last parameter is true' do
-    Paint.rgb(1, 2, 3, true).should == '48;5;232'
+    it 'returns truecolor ANSI code sequence' do
+      Paint.rgb(1, 2, 3).should == '38;2;1;2;3'
+    end
+
+    it 'returns truecolor background ANSI code sequence if last parameter is true' do
+      Paint.rgb(1, 2, 3, true).should == '48;2;1;2;3'
+    end
   end
 end
 
@@ -42,7 +58,7 @@ describe 'Paint.hex' do
   end
 end
 
-describe 'Paint.rbb_name' do
+describe 'Paint.rgb_name' do
   before do
     Paint.mode = 256
   end

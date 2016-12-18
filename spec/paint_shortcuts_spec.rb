@@ -4,13 +4,13 @@ require 'paint/shortcuts'
 
 describe 'Paint::SHORTCUTS' do
   before do
+    Paint.mode = 256
+
     Paint::SHORTCUTS[:example] = {
       :white => Paint.color(:black),
       :red => Paint.color(:red, :bright),
       :title => Paint.color(:underline),
     }
-
-    Paint.mode = 256
   end
 
   context 'Paint::Example.method_missing' do
