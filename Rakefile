@@ -43,3 +43,12 @@ desc "Run a Benchmark"
 task :benchmark do
   ruby 'benchmark.rb'
 end
+
+desc "Print 256 colors rainbow"
+task :rainbow256 do
+  require_relative 'lib/paint'
+  (0...256).each{ |color|
+    print Paint[' ', 48, 5, color] # print empty bg color field
+  }
+  puts
+end
