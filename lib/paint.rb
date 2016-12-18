@@ -151,13 +151,26 @@ module Paint
 
     # This variable influences the color code generation
     # Currently supported values:
-    # * 0xffffff  - 24-bit (~16 million) colors, aka truecolor
+    # * 0xFFFFFF  - 24-bit (~16 million) colors, aka truecolor
     # * 256       - 256 colors
     # * 16        - only ansi colors and bright effect
     # * 8         - only ansi colors
     # * 0         - no colorization!
     attr_reader :mode
-    def mode=(val) @cache.clear; @mode = val end
+    def mode=(val)
+      @cache.clear
+
+      case val
+      when 0, 8, 16, 256, 0xFFFFFF
+        @mode = val
+      when TrueClass
+        @mode = 0xFFFFFF
+      when nil
+        @mode = 0
+      else
+        raise ArgumentError, "Cannot set paint mode to value <#{val}>, possible values are: 0xFFFFFF (true), 256, 16, 8, 0 (nil)"
+      end
+    end
 
     # Adds ansi sequence
     def wrap(*ansi_codes)

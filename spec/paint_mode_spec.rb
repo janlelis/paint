@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'Paint.mode' do
-  it "works with full color set if mode is 0xFFFFFF (16777215) or another unknown true value" do
+  it "works with full color set if mode is 0xFFFFFF (16777215)" do
     Paint.mode = 0xFFFFFF
     Paint['J-_-L', 'gold'].should == "\e[38;2;255;215;0mJ-_-L\e[0m"
   end
