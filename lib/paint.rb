@@ -289,11 +289,10 @@ module Paint
       color_pool += RGB_COLORS_ANSI_BRIGHT.values if use_bright
 
       ansi_color_rgb = color_pool.min_by{ |col| rgb_color_distance([red, green, blue],col) }
-      key_method = RUBY_VERSION < "1.9" ? :index : :key
-      if ansi_color = RGB_COLORS_ANSI.send(key_method, ansi_color_rgb)
+      if ansi_color = RGB_COLORS_ANSI.key(ansi_color_rgb)
         ANSI_COLORS[ansi_color]
       else
-        ansi_color = RGB_COLORS_ANSI_BRIGHT.send(key_method, ansi_color_rgb)
+        ansi_color = RGB_COLORS_ANSI_BRIGHT.key(ansi_color_rgb)
         "#{ANSI_COLORS[ansi_color]};1"
       end
     end
