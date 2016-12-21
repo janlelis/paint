@@ -5,7 +5,10 @@ module Paint
     def unpaint(string)
       string.gsub(/\e\[(?:[0-9];?)+m/, '')
     end
+
+    # Creates a random ANSI color
+    def random(background = false)
+      (background ? 40 : 30) + rand(8)
+    end
   end
 end
-
-# J-_-L

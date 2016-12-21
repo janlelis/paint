@@ -216,11 +216,6 @@ module Paint
       end
     end
 
-    # Creates a random ansi color
-    def random(background = false)
-      (background ? 40 : 30) + rand(8)
-    end
-
     # Creates the specified effect by looking it up in Paint::ANSI_EFFECTS
     def effect(effect_name)
       ANSI_EFFECTS[effect_name]
