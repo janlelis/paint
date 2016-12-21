@@ -44,17 +44,17 @@ describe 'Paint.rgb' do
   end
 end
 
-describe 'Paint.hex' do
+describe 'Paint.rgb_hex' do
   before do
     Paint.mode = 256
   end
 
   it 'returns ansi code sequence for one of 256 colors' do
-    Paint.hex("#fff").should == "38;5;255"
+    Paint.rgb_hex("fff").should == "38;5;255"
   end
 
   it 'returns background ansi code sequence for one of 256 colors if second parameter is true' do
-    Paint.hex("123456", true).should == "48;5;24"
+    Paint.rgb_hex("123456", true).should == "48;5;24"
   end
 end
 

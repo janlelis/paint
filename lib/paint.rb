@@ -5,10 +5,6 @@ require_relative 'paint/util'
 module Paint
   autoload :RGB_COLORS, 'paint/rgb_colors'
 
-  HEX_RE = Regexp.compile(/(?<=^|^\#)           # optional, non-matching '#'
-                          (?:[0-9a-f]{3}){1,2}  # 3 or 6 hex chars
-                          $/ix)
-
   class << self
     # Takes a string and color options and colorizes the string
     # See README.rdoc for details
@@ -46,9 +42,8 @@ module Paint
           end
 
         when ::String
-          match = HEX_RE.match(option)
-          if match
-            mix << hex(match[0], color_seen)
+          if option =~ /\A#?(?<hex_color>[[:xdigit:]]{3}{1,2})\z/ # 3 or 6 hex chars
+            mix << rgb_hex($~[:hex_color], color_seen)
             color_seen = :set
           else
             mix << rgb_name(option, color_seen)
@@ -125,14 +120,13 @@ module Paint
       end
     end
 
-    # If not true_color, creates 256-compatible color from a html-like color string,
-    # otherwise, an exact 24-bit color
-    def hex(source, background = false)
-      string = source.tr '#',''
-      color_code = if string.size == 6
-        string.each_char.each_slice(2).map{ |hex_color| hex_color.join.to_i(16) }
-      else
-        string.each_char.map{ |hex_color_half| (hex_color_half*2).to_i(16) }
+    # Creates RGB color from a HTML-like color definition string
+    def rgb_hex(string, background = false)
+      case string.size
+      when 6
+        color_code = string.each_char.each_slice(2).map{ |hex_color| hex_color.join.to_i(16) }
+      when 3
+        color_code = string.each_char.map{ |hex_color_half| (hex_color_half*2).to_i(16) }
       end
       rgb(*[*color_code, background])
     end
