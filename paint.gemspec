@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
     lib/paint/rgb_colors_ansi.rb
     lib/paint/util.rb
     lib/paint/version.rb
+    data/rgb_colors.marshal.gz
   ]
   s.extra_rdoc_files = %w[
     README.md

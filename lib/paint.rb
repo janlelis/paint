@@ -209,7 +209,7 @@ module Paint
       rgb(*[*color_code, background])
     end
 
-    # Creates a 256-color from a name found in Paint::RGB_COLORS (based on rgb.txt)
+    # Creates a RGB from a name found in Paint::RGB_COLORS (based on rgb.txt)
     def rgb_name(color_name, background = false)
       if color_code = RGB_COLORS[color_name]
         rgb(*[*color_code, background])
