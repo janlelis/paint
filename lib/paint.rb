@@ -308,5 +308,3 @@ module Paint
   @mode  = detect_mode
   @cache = Hash.new{ |h, k| h[k] = color(*k) }
 end
-
-# J-_-L

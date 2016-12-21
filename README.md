@@ -1,96 +1,109 @@
 # Ruby Paint [<img src="https://badge.fury.io/rb/paint.svg" />](http://badge.fury.io/rb/paint) [<img src="https://travis-ci.org/janlelis/paint.svg" />](https://travis-ci.org/janlelis/paint)
 
-Paint manages terminal colors and effects for you. It combines the strengths
-of **term-ansicolor**, **rainbow** and other similar projects into a simple to
-use, however still flexible terminal colorization gem with no core extensions
-by default.
+Paint creates terminal colors and effects for you. It combines the strengths of **term-ansicolor**, **rainbow**, and similar projects into a simple to use, however still flexible terminal colors gem with no core extensions by default.
 
 ## Features
-*   No string extensions (suitable for library development)
-*   Simple API
-*   Faster than other terminal color gems ([as of October
-    2015](https://gist.github.com/janlelis/91413b9295c81ee873dc))
-*   Supports setting 256 colors (for capable terminals)
-*   Supports setting any terminal effects
-*   Fall-back modes for non-256-color terminals (`Paint.mode`), supported
-    modes:
-    *   256 colors
-    *   16 colors (only ansi colors, combined with bright effect)
-    *   8 colors (only ansi colors)
-    *   0 colors (deactivate)
 
+* No string extensions (suitable for library development)
+* Simple API
+* Faster than other terminal color gems ([as of October2015](https://gist.github.com/janlelis/91413b9295c81ee873dc))
+* Supports "true colors" (for capable terminals)
+* Supports 256 color palette (for capable terminals)
+* Allows you to set any terminal effects
+* `Paint.mode`: Fall-back modes for terminals with less colors, supported modes:
+  * 0xFFFFFF (= 16777215) colors ("true color")
+  * 256 colors
+  * 16 colors (only ANSI colors, combined with bright effect)
+  * 8 colors (only ANSI colors)
+  * 0 colors (deactivate)
 
+## Supported Rubies
+
+* **2.4**, **2.3**, **2.2**, **2.1**
+
+Unsupported, but might still work:
+
+* **2.0**, **1.9**
 
 ## Setup
-Add to Gemfile:
+
+Add to `Gemfile`:
 
     gem 'paint'
 
-and run `bundle install`
+and run `bundle install`.
 
 In Ruby do:
 
     require 'paint'
 
 ## Usage
-The only method you need to know is: `Paint.[]`
 
-The first argument given to `Paint.[]` is the string to colorize (if the
-object is not a string, `to_s` will be called on it). The other arguments
-describe how to modify/colorize the string. Let's learn by example:
+The only method you need is: `Paint.[]`
 
-    Paint['Ruby', :red]           # sets ansi color red
-    Paint['Ruby', :red, :bright]  # also applies bright/bold effect
-    Paint['Ruby', :bright, :red]  # does the same as above
-    Paint['Ruby', :red, :bright, :underline] # effects can often be combined
-    Paint['Ruby', :red, :blue]    # the second color you define is for background
-    Paint['Ruby', nil, :blue]     # pass a nil before a color to ignore foreground and only set background color
-    Paint['Ruby', [100, 255, 5]]  # you can define rgb colors that map to one of 256 colors. Only supported on 256-color terminals, of course
-    Paint['Ruby', "gold", "snow"] # Paint supports rgb.txt color names, note that the arguments are strings (:yellow != "yellow")!
-    Paint['Ruby', "#123456"]      # html like definitions are possible.
-    Paint['Ruby', "fff"]          # another html hex definition
-    Paint['Ruby', :inverse]       # swaps fore- and background
-    Paint['Ruby', :italic, :encircle, :rapid_blink, :overline] # probably not supported effects
-    Paint['Ruby']                 # don't pass any argument and the string will not be changed
+The first argument given to `Paint.[]` is the string to colorize (if the object is not a string, `to_s` will be called on it). The other arguments describe how to modify/colorize the string. Let's learn by example:
 
-When you pass multiple colors, the first one is taken as foreground color and
-the second one defines the background color, every other will be ignored. To
-only change the background color, you have to pass a `nil` first. Effects can
-be passed in any order.
+    Paint['Ruby', :red]           # Sets ANSI color red
+    Paint['Ruby', :red, :bright]  # Also applies bright/bold effect
+    Paint['Ruby', :bright, :red]  # Does the same as above
+    Paint['Ruby', :red, :bright, :underline] # Effects can often be combined
+    Paint['Ruby', :red, :blue]    # The second color you define is for background
+    Paint['Ruby', nil, :blue]     # Pass a nil before a color to ignore foreground and only set background color
+    Paint['Ruby', [100, 255, 5]]  # You can define RGB colors. Depending on your terminal, this will create
+                                  # a "true color" or map to 256/16/8 colors.
+    Paint['Ruby', "gold", "snow"] # Paint supports rgb.txt color names, note that the arguments are strings
+                                  # (:yellow != "yellow")!
+    Paint['Ruby', "#123456"]      # HTML like definitions are possible
+    Paint['Ruby', "fff"]          # Another HTML hex definition
+    Paint['Ruby', :inverse]       # Swaps fore- and background
+    Paint['Ruby', :italic, :encircle, :rapid_blink, :overline] # Probably not supported effects
+    Paint['Ruby']                 # Don't pass any argument and the string will not be changed
 
-You can find more examples in the specs.
+When you pass multiple colors, the first one is taken as foreground color and the second one defines the background color, every following color will be ignored. To only change the background color, you have to pass a `nil` first. Effects can be passed in any order.
+
+[You can find more examples in the specs.](https://github.com/janlelis/paint/blob/master/spec/paint_spec.rb).
+
+[List of rgb.txt colors](https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart).
 
 ## Windows Support
-For ANSI support in Windows OS, you can use
-[ansicon](https://github.com/adoxa/ansicon) or
-[ConEmu](http://code.google.com/p/conemu-maximus5/).
 
-## More details about terminal colors and effects
-Terminal colors/effects are set by [ansi escape
-sequences](http://en.wikipedia.org/wiki/ANSI_escape_code). These are strings
-that look like this: `\e[X;X;X;X;X]m` where X are integers with some meaning.
-For example, 0 means reset, 31 means red foreground and 41 red background.
-When you tell Paint to use one of the eight ansi base colors as foreground
-color, it just inserts a number between 30 and 37 in the sequence. The
-following colors are available:
+For ANSI support in Windows OS, you can use [ansicon](https://github.com/adoxa/ansicon) or [ConEmu](http://code.google.com/p/conemu-maximus5/).
 
-    :black, :red, :green, :yellow, :blue, :magenta, :cyan, :white, (:default)
+## `Paint.mode`
 
-When combined with the `:bright` (= `:bold`) effect, the color in the terminal
-emulator often differs a little bit.
+You can choose between five ways to use `Paint.[]` by setting `Paint.mode` to one of the following:
 
-Through special sequences it's also possible to set 256-colors, instead of 8,
-which is also supported by many - but not all - terminals. Paint automatically
-translates given rgb colors to a suitable color of the 256 available colors.
+* **0xFFFFFF**: Use 16777215 "true colors"
+* **256**:      Use the 256 colors palette
+* **16**:       Use the eight ANSI colors (combined with bright effect)
+* **8**:        Use the eight ANSI colors
+* **0**:        Don't colorize at all
 
-When using the `Paint.[]` method, Paint wraps the given string between the
-calculated escape sequence and an reset sequence (`"\e[0m"`). You can get the
-raw escape sequence by using the `Paint.color` method.
+Paint tries to automatically detect the proper value your terminal is capable of, please [open an issue](https://github.com/janlelis/paint/issues/new) if `Paint.detect_mode` yields a wrong value for you.
+
+## More Details About Terminal Colors and Effects
+
+Terminal colors/effects get created by [ANSI escape sequences](http://en.wikipedia.org/wiki/ANSI_escape_code). These are strings that look like this: `\e[X;X;X;X;X]m` where X are integers with some meaning. For example, `0` means *reset*, `31` means *red foreground* and `41` stands for red background. When you tell **Paint** to use one of the eight ANSI base colors as foreground color, it just inserts a number between `30` and `37` into the sequence. The following colors are available:
+
+* `:black`
+* `:red`
+* `:green`
+* `:yellow`
+* `:blue`
+* `:magenta`
+* `:cyan`
+* `:white`
+* (`:default`)
+
+When combined with the `:bright` (= `:bold`) effect, the color in the terminal emulator often differs a little bit, thus it is possible to represent 16 colors.
+
+Through special sequences it's also possible to set 256-colors, or even 16777215 colors, instead of only the 8 ANSI ones. However, this is not supported by all terminals. Paint automatically translates given RGB colors to a suitable color of the supported color spectrum.
+
+When using the `Paint.[]` method, Paint wraps the given string between the calculated escape sequence and an reset sequence (`"\e[0m"`). You can get the raw escape sequence by using the `Paint.color` method.
 
 ### Effects
-Also see
-[en.wikipedia.org/wiki/ANSI_escape_code](http://en.wikipedia.org/wiki/ANSI_esc
-ape_code):
+
+See [en.wikipedia.org/wiki/ANSI_escape_code](http://en.wikipedia.org/wiki/ANSI_escape_code) for a more detailed discussion:
 
 #### Often supported
 
@@ -124,49 +137,30 @@ ape_code):
     54) :frame_off, :encircle_off
     55) :overline_off
 
-## Paint.mode
-You can choose between four ways to use `Paint.[]` by setting `Paint.mode` to
-one of the following:
-*   256:   full support
-*   16:    don't use 256 colors, but the ansi eight ones (combined with bright
-    effect)
-*   8:     don't use 256 colors, but the ansi eight ones
-*   0:     don't colorize at all
-
-
-Paint tries to automatically detect the proper value, please open an issue if
-`Paint.detect_mode` yields a wrong value for you.
-
-## Random ANSI Colors
-With 1.0, the :random feature was removed, because it interfered with the
-caching mechanism. If you still need it, you will have to workaround by
-generating random colors yourself, before passing them into the Paint method:
-
-    Paint['Ruby', Paint.random]        # get one of eight random ansi foreground colors
-    Paint['Ruby', Paint.random(true)]  # get one of eight random ansi background colors
 
 ## Utilities
-There are some supporting methods available. You can get a `p` like
-alternative for calling `puts Paint.[]`:
+
+The `Paint.random` method generates a random ANSI color you can pass into `Paint.[]`:
+
+    Paint['Ruby', Paint.random]        # Get one of eight random ANSI foreground colors
+    Paint['Ruby', Paint.random(true)]  # Get one of eight random ANSI background colors
+
+Another helper method is `Paint.unpaint`, which removes any ANSI colors:
+
+    Paint.unpaint( Paint['Ruby', :red, :bright] ).should == 'Ruby'
+
+You can get a `p` like alternative for calling `puts Paint.[]`:
 
     require 'paint/pa'
     pa "Ruby", :red, :underline  # same as puts Paint["Ruby", :red, :underline]
 
-Another helper method is `Paint.unpaint`, which removes any ansi colors:
-
-    Paint.unpaint( Paint['Ruby', :red, :bright] ).should == 'Ruby'
-
 ## Advanced Usage: Shortcuts
-There is an extension gem available that allows you to define custom color
-shortcuts. See
-[SHORTCUTS.md](https://github.com/janlelis/paint/blob/master/SHORTCUTS.md)
-for more information.
+
+There is an extension gem available which allows you to define custom color definitions, which you can reuse later. See [SHORTCUTS.md](https://github.com/janlelis/paint/blob/master/SHORTCUTS.md) for documentation. This is completely optional.
 
 ## J-_-L
 
 Copyright (c) 2011-2016 Jan Lelis <http://janlelis.com>, released under the
 MIT license.
 
-Mainly influenced by [rainbow](https://github.com/sickill/rainbow) and
-[term-ansicolor](https://github.com/flori/term-ansicolor). Also see the list
-of [contributors](https://github.com/janlelis/paint/contributors)
+Thank you to [rainbow](https://github.com/sickill/rainbow) and [term-ansicolor](https://github.com/flori/term-ansicolor) for ideas and inspiration. Also, a lot of thanks to all the [contributors](https://github.com/janlelis/paint/contributors)!
