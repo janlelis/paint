@@ -84,10 +84,10 @@ module Paint
       @cache.clear
 
       case val
-      when 0, 8, 16, 256, 0xFFFFFF
+      when 0, 8, 16, 256, TRUE_COLOR
         @mode = val
       when TrueClass
-        @mode = 0xFFFFFF
+        @mode = TRUE_COLOR
       when nil
         @mode = 0
       else
@@ -115,7 +115,7 @@ module Paint
         "#{background ? 4 : 3}#{rgb_to_ansi(red, green, blue, true)}"
       when 256
         "#{background ? 48 : 38}#{rgb_to_256(red, green, blue)}"
-      when 0xFFFFFF
+      when TRUE_COLOR
         "#{background ? 48 : 38}#{rgb_true(red, green, blue)}"
       end
     end
@@ -150,7 +150,7 @@ module Paint
         if ENV['ANSICON']
           16
         elsif ENV['ConEmuANSI'] == 'ON'
-          256
+          TRUE_COLOR
         else
           0
         end

@@ -2,6 +2,9 @@ module Paint
   # Clears all colors
   NOTHING = "\033[0m".freeze
 
+  # Number of possible colors in TRUE COLOR mode
+  TRUE_COLOR = 0xFFFFFF
+
   # Basic colors (often, the color differs when using the bright effect)
   # Final color will be 30 + value for foreground and 40 + value for background
   ANSI_COLORS = {
