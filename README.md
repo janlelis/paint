@@ -7,15 +7,21 @@ Paint creates terminal colors and effects for you. It combines the strengths of 
 * No string extensions (suitable for library development)
 * Simple API
 * Faster than other terminal color gems ([as of October2015](https://gist.github.com/janlelis/91413b9295c81ee873dc))
-* Supports "true colors" (for capable terminals)
-* Supports 256 color palette (for capable terminals)
+* Supports *true color* or 256 colors (for capable terminals)
 * Allows you to set any terminal effects
 * `Paint.mode`: Fall-back modes for terminals with less colors, supported modes:
-  * 0xFFFFFF (= 16777215) colors ("true color")
-  * 256 colors
+  * 0xFFFFFF (= 16777215) colors (*true color*)
+  * 256 colors (palette)
   * 16 colors (only ANSI colors, combined with bright effect)
   * 8 colors (only ANSI colors)
-  * 0 colors (deactivate)
+  * 0 colors (no colors / deactivate)
+
+## Paint 2.0 | True Color Support
+
+Starting with **Paint 2.0**, *true color* mode is the new default mode, since most major terminals now support 24bit colors. If it happens to not work in your setup:
+
+- Manually set `Paint.mode = 256` at the beginning of your code
+- Please [open a new issue](https://github.com/janlelis/paint/issues/new) so we can figure out how to blacklist the terminal used
 
 ## Supported Rubies
 
@@ -73,7 +79,7 @@ For ANSI support in Windows OS, you can use [ansicon](https://github.com/adoxa/a
 
 You can choose between five ways to use `Paint.[]` by setting `Paint.mode` to one of the following:
 
-* **0xFFFFFF**: Use 16777215 "true colors"
+* **0xFFFFFF**: Use 16777215 *true colors*
 * **256**:      Use the 256 colors palette
 * **16**:       Use the eight ANSI colors (combined with bright effect)
 * **8**:        Use the eight ANSI colors
