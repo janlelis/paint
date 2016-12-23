@@ -19,6 +19,7 @@ module Paint
       string, *options = paint_arguments
       return string.to_s if options.empty?
       substitutions = options.pop if options[-1].is_a?(Hash)
+      options = options.first if options.size == 1 && !options.first.respond_to?(:to_ary)
       current_color = @cache[options]
 
       # Substitutions & Nesting
