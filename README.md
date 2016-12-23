@@ -35,13 +35,17 @@ Unsupported, but might still work:
 
 Add to `Gemfile`:
 
-    gem 'paint'
+```ruby
+gem 'paint'
+```
 
 and run `bundle install`.
 
 In Ruby do:
 
-    require 'paint'
+```ruby
+require 'paint'
+```
 
 ## Usage
 
@@ -49,27 +53,29 @@ The only method you need is: `Paint.[]`
 
 The first argument given to `Paint.[]` is the string to colorize (if the object is not a string, `to_s` will be called on it). The other arguments describe how to modify/colorize the string. Let's learn by example:
 
-    Paint['Ruby', :red]           # Sets ANSI color red
-    Paint['Ruby', :red, :bright]  # Also applies bright/bold effect
-    Paint['Ruby', :bright, :red]  # Does the same as above
-    Paint['Ruby', :red, :bright, :underline] # Effects can often be combined
-    Paint['Ruby', :red, :blue]    # The second color you define is for background
-    Paint['Ruby', nil, :blue]     # Pass a nil before a color to ignore foreground and only set background color
-    Paint['Ruby', [100, 255, 5]]  # You can define RGB colors. Depending on your terminal, this will create
-                                  # a "true color" or map to 256/16/8 colors.
-    Paint['Ruby', "gold", "snow"] # Paint supports rgb.txt color names, note that the arguments are strings
-                                  # (:yellow != "yellow")!
-    Paint['Ruby', "#123456"]      # HTML like definitions are possible
-    Paint['Ruby', "fff"]          # Another HTML hex definition
-    Paint['Ruby', :inverse]       # Swaps fore- and background
-    Paint['Ruby', :italic, :encircle, :rapid_blink, :overline] # Probably not supported effects
-    Paint['Ruby']                 # Don't pass any argument and the string will not be changed
+```ruby
+Paint['Ruby', :red]           # Sets ANSI color red
+Paint['Ruby', :red, :bright]  # Also applies bright/bold effect
+Paint['Ruby', :bright, :red]  # Does the same as above
+Paint['Ruby', :red, :bright, :underline] # Effects can often be combined
+Paint['Ruby', :red, :blue]    # The second color you define is for background
+Paint['Ruby', nil, :blue]     # Pass a nil before a color to ignore foreground and only set background color
+Paint['Ruby', [100, 255, 5]]  # You can define RGB colors. Depending on your terminal, this will create
+                              # a "true color" or map to 256/16/8 colors.
+Paint['Ruby', "gold", "snow"] # Paint supports rgb.txt color names, note that the arguments are strings
+                              # (:yellow != "yellow")!
+Paint['Ruby', "#123456"]      # HTML like definitions are possible
+Paint['Ruby', "fff"]          # Another HTML hex definition
+Paint['Ruby', :inverse]       # Swaps fore- and background
+Paint['Ruby', :italic, :encircle, :rapid_blink, :overline] # Probably not supported effects
+Paint['Ruby']                 # Don't pass any argument and the string will not be changed
+```
 
 When you pass multiple colors, the first one is taken as foreground color and the second one defines the background color, every following color will be ignored. To only change the background color, you have to pass a `nil` first. Effects can be passed in any order.
 
-[You can find more examples in the specs.](https://github.com/janlelis/paint/blob/master/spec/paint_spec.rb).
+[You can find more examples in the specs.](https://github.com/janlelis/paint/blob/master/spec/paint_spec.rb)
 
-[List of rgb.txt colors](https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart).
+[List of rgb.txt colors.](https://en.wikipedia.org/wiki/X11_color_names#Color_name_chart)
 
 ## Windows Support
 
@@ -147,26 +153,34 @@ See [en.wikipedia.org/wiki/ANSI_escape_code](http://en.wikipedia.org/wiki/ANSI_e
 
 From time to time, you might find yourself in a situation where you want to colorize a substring differently from the rest of the string. Paint supports this via a simple templating approach using the `%` method with an array argument. Use the `%{var}` notation within a string, and pass the template variables as a hash:
 
-  Paint%['Yellow string with a %{blue_text} in it', :yellow,
-    blue_text: ["blue text", :blue]
-  ]
-  # => "\e[33mYellow string with a \e[34mblue text\e[33m in it\e[0m"
+```ruby
+Paint%['Yellow string with a %{blue_text} in it', :yellow,
+  blue_text: ["blue text", :blue]
+]
+# => "\e[33mYellow string with a \e[34mblue text\e[33m in it\e[0m"
+```
 
 ## Utilities
 
 The `Paint.random` method generates a random ANSI color you can pass into `Paint.[]`:
 
-    Paint['Ruby', Paint.random]        # Get one of eight random ANSI foreground colors
-    Paint['Ruby', Paint.random(true)]  # Get one of eight random ANSI background colors
+```ruby
+Paint['Ruby', Paint.random]        # Get one of eight random ANSI foreground colors
+Paint['Ruby', Paint.random(true)]  # Get one of eight random ANSI background colors
+```
 
 Another helper method is `Paint.unpaint`, which removes any ANSI colors:
 
-    Paint.unpaint( Paint['Ruby', :red, :bright] ).should == 'Ruby'
+```ruby
+Paint.unpaint( Paint['Ruby', :red, :bright] ).should == 'Ruby'
+```
 
 You can get a `p` like alternative for calling `puts Paint.[]`:
 
-    require 'paint/pa'
-    pa "Ruby", :red, :underline  # same as puts Paint["Ruby", :red, :underline]
+```ruby
+require 'paint/pa'
+pa "Ruby", :red, :underline  # same as puts Paint["Ruby", :red, :underline]
+```
 
 ## Advanced Usage: Shortcuts
 
