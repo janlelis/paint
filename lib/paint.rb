@@ -7,11 +7,32 @@ module Paint
 
   class << self
     # Takes a string and color options and colorizes the string
-    # See README.rdoc for details
     def [](string, *options)
-      return string.to_s if @mode.zero? || options.empty?
-      options = options.first if options.size == 1 && !options.first.respond_to?(:to_ary)
-      @cache[options] + string.to_s + NOTHING
+      fragment([string, *options])
+    end
+
+    def fragment(paint_arguments, clear_color = NOTHING)
+      string, *options = paint_arguments
+      return string.to_s if options.empty?
+      substitutions = options.pop if options[-1].is_a?(Hash)
+      current_color = @cache[options]
+
+      # Substitutions & Nesting
+      if substitutions
+        substitutions.each{ |key, value|
+          string.gsub!(
+            "%{#{key}}",
+            (value.is_a?(Array) ? fragment(value, current_color) : value.to_s)
+          )
+        }
+      end
+
+      # Wrap string (if Paint.mode > 0)
+      if @mode.zero?
+        string.to_s
+      else
+        current_color + string.to_s + clear_color
+      end
     end
 
     # Transforms options into the desired color. Used by @cache
@@ -95,7 +116,7 @@ module Paint
       end
     end
 
-    # Adds ansi sequence
+    # Adds ANSI sequence
     def wrap(*ansi_codes)
       "\033[" + ansi_codes*";" + "m"
     end

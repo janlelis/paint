@@ -143,6 +143,14 @@ See [en.wikipedia.org/wiki/ANSI_escape_code](http://en.wikipedia.org/wiki/ANSI_e
     54) :frame_off, :encircle_off
     55) :overline_off
 
+## Substitution & Nesting
+
+From time to time, you might find yourself in a situation where you want to colorize a substring differently from the rest of the string. Paint supports this via a simple templating approach. Use the `%{var}` notation within a string, and pass those vars as a hash:
+
+  Paint['Yellow string with a %{blue_text} in it', :yellow,
+    blue_text: ["blue text", :blue]
+  ]
+  # => "\e[33mYellow string with a \e[34mblue text\e[33m in it\e[0m"
 
 ## Utilities
 

@@ -5,16 +5,6 @@ describe 'Paint.[]' do
     Paint.mode = 256
   end
 
-  describe 'truecolor support' do
-    before do
-      Paint.mode = 0xFFFFFF
-    end
-
-    it 'will return a truecolor escape sequence' do
-      Paint['J-_-L', [255, 200, 0]].should == "\e[38;2;255;200;0mJ-_-L\e[0m"
-    end
-  end
-
   context '(with no options)' do
     it "doesn't colorize at all" do
       Paint['J-_-L'].should == "J-_-L"
@@ -112,6 +102,31 @@ describe 'Paint.[]' do
 
     it 'passes integers to final escape sequence (mixed with normal arguments)' do
       Paint['J-_-L', :red, :bright, 42, :underline].should == "\e[31;1;42;4mJ-_-L\e[0m"
+    end
+  end
+
+  describe 'True color support' do
+    before do
+      Paint.mode = true
+    end
+
+    it 'will return a true color escape sequence' do
+      Paint['J-_-L', [255, 200, 0]].should == "\e[38;2;255;200;0mJ-_-L\e[0m"
+    end
+  end
+
+  describe "Nesting & Substitution" do
+    it 'will replace %{template_variables}' do
+      Paint['J%{eye}%{nose}%{eye}L', :yellow, eye: '-', nose: '_'].should ==
+          "\e[33mJ-_-L\e[0m"
+    end
+
+    it 'will work with arbitrary nesting and produce optimized escape sequences' do
+      Paint['first level - %{second} - first level', :yellow, second:
+        ['second level - %{third} - second level', :red, third:
+          ['third level', :green]
+        ]
+      ].should == "\e[33mfirst level - \e[31msecond level - \e[32mthird level\e[31m - second level\e[33m - first level\e[0m"
     end
   end
 end
