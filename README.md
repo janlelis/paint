@@ -6,7 +6,7 @@ Paint creates terminal colors and effects for you. It combines the strengths of 
 
 * No string extensions (suitable for library development)
 * Simple API
-* Faster than other terminal color gems ([as of October2015](https://gist.github.com/janlelis/91413b9295c81ee873dc))
+* Faster than other terminal color gems ([as of December 2016](https://gist.github.com/janlelis/91413b9295c81ee873dc))
 * Supports *true color* or 256 colors (for capable terminals)
 * Allows you to set any terminal effects
 * `Paint.mode`: Fall-back modes for terminals with less colors, supported modes:
