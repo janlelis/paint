@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
   ]
 
   s.required_ruby_version = '>= 1.9.3'
-  s.add_dependency 'paint', '~> 1.0'
+  s.add_dependency 'paint', '>= 1.0', '< 3.0'
 end
