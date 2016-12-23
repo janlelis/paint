@@ -9,7 +9,7 @@ module Paint
     # Takes a string and color options and colorizes the string, fast version without nesting
     def [](string, *options)
       return string.to_s if @mode.zero? || options.empty?
-      options = options.first if options.size == 1 && !options.first.respond_to?(:to_ary)
+      options = options[0] if options.size == 1 && !options[0].respond_to?(:to_ary)
       @cache[options] + string.to_s + NOTHING
     end
 
@@ -19,7 +19,7 @@ module Paint
       string, *options = paint_arguments
       return string.to_s if options.empty?
       substitutions = options.pop if options[-1].is_a?(Hash)
-      options = options.first if options.size == 1 && !options.first.respond_to?(:to_ary)
+      options = options[0] if options.size == 1 && !options[0].respond_to?(:to_ary)
       current_color = @cache[options]
 
       # Substitutions & Nesting
