@@ -117,12 +117,12 @@ describe 'Paint.[]' do
 
   describe "Nesting & Substitution" do
     it 'will replace %{template_variables}' do
-      Paint['J%{eye}%{nose}%{eye}L', :yellow, eye: '-', nose: '_'].should ==
+      Paint%['J%{eye}%{nose}%{eye}L', :yellow, eye: '-', nose: '_'].should ==
           "\e[33mJ-_-L\e[0m"
     end
 
     it 'will work with arbitrary nesting and produce optimized escape sequences' do
-      Paint['first level - %{second} - first level', :yellow, second:
+      Paint%['first level - %{second} - first level', :yellow, second:
         ['second level - %{third} - second level', :red, third:
           ['third level', :green]
         ]

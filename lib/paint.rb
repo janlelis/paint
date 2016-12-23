@@ -6,12 +6,16 @@ module Paint
   autoload :RGB_COLORS, 'paint/rgb_colors'
 
   class << self
-    # Takes a string and color options and colorizes the string
+    # Takes a string and color options and colorizes the string, fast version without nesting
     def [](string, *options)
-      fragment([string, *options])
+      return string.to_s if @mode.zero? || options.empty?
+      options = options.first if options.size == 1 && !options.first.respond_to?(:to_ary)
+      @cache[options] + string.to_s + NOTHING
     end
 
-    def fragment(paint_arguments, clear_color = NOTHING)
+    # Takes an array with string and color options and colorizes the string,
+    # extended version with nesting and substitution support
+    def %(paint_arguments, clear_color = NOTHING)
       string, *options = paint_arguments
       return string.to_s if options.empty?
       substitutions = options.pop if options[-1].is_a?(Hash)
@@ -22,7 +26,7 @@ module Paint
         substitutions.each{ |key, value|
           string.gsub!(
             "%{#{key}}",
-            (value.is_a?(Array) ? fragment(value, current_color) : value.to_s)
+            (value.is_a?(Array) ? self%[value, current_color] : value.to_s)
           )
         }
       end

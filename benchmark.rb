@@ -40,6 +40,10 @@ Benchmark.ips do |x|
     Paint['ANSI', :red]
   }
 
+  x.report("paint w/ nesting"){
+    Paint%['ANSI', :red]
+  }
+
   x.report("rainbow"){
     Rainbow('ANSI').color(:red)
   }
@@ -72,6 +76,10 @@ puts
 Benchmark.ips do |x|
   x.report("paint"){
     Paint['ANSI', :red, :green]
+  }
+
+  x.report("paint w/ nesting"){
+    Paint%['ANSI', :red, :green]
   }
 
   x.report("rainbow"){

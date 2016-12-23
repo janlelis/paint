@@ -4,7 +4,7 @@
 #### Major Changes
 
 *   New default color mode `0xFFFFFF`: 24bit - true color. If this breaks your code, add `Paint.mode = 256` to the beginning of your code
-*   `Paint.[]` suppors an API for nesting colored strings
+*   New `Paint%[]` API: Substitution mechanism for nested color strings
 
 #### Minor Changes
 
