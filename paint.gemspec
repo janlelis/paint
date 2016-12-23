@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = "mail@janlelis.de"
   s.homepage    = "https://github.com/janlelis/paint"
   s.summary     = "Terminal painter!"
-  s.description = "Terminal painter: No string extensions / 256 color support / effect support. Usage: Paint['string', :red, :bright]"
+  s.description = "Terminal painter: No string extensions / RGB and 256 color support / effect support. Usage: Paint['string', :red, :bright]"
   s.license = 'MIT'
 
   s.files = %w[
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     lib/paint.rb
     lib/paint/pa.rb
     lib/paint/rgb_colors.rb
-    lib/paint/rgb_colors_ansi.rb
+    lib/paint/constants.rb
     lib/paint/util.rb
     lib/paint/version.rb
     data/rgb_colors.marshal.gz

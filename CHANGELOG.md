@@ -1,3 +1,18 @@
+# CHANGELOG
+
+### 2.0.0
+#### Major Changes
+
+*   New default color mode `0xFFFFFF`: 24bit - true color. If this breaks your code, add `Paint.mode = 256` to the beginning of your code
+*   `Paint.[]` suppors an API for nesting colored strings
+
+#### Minor Changes
+
+*   Smaller gem size (compress RGB color name data)
+*   Remove `Paint.update_rgb_colors` and `Paint.rainbow`
+*   Internal method `.hex` renamed to `.rgb_hex` and does not take "#" prefixed strings anymore
+*   Minor refactorings and documentation updates
+
 ### 1.0.1
 
 *   Fix case of string arguments getting mutated (see gh#14)
