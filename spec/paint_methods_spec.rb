@@ -71,7 +71,7 @@ describe 'Paint.rgb_name' do
     Paint.rgb_name("gold", true).should == "48;5;226"
   end
 
-  it 'returns ansi code sequence for the names color colour220' do
+  it 'returns ansi code sequence for the named color colour220' do
     Paint.rgb_name("colour220").should == "38;5;226"
   end
 
