@@ -159,6 +159,14 @@ module Paint
 
     # Creates a RGB from a name found in Paint::RGB_COLORS (based on rgb.txt)
     def rgb_name(color_name, background = false)
+      if color_name[0..5] == "colour"
+        case color_name.size
+        when 7
+          color_name = "colour00" + color_name[-1]
+        when 8
+          color_name = "colour0" + color_name[-2..-1]
+        end
+      end
       if color_code = RGB_COLORS[color_name]
         rgb(*[*color_code, background])
       end

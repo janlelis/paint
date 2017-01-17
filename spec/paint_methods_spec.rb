@@ -79,6 +79,11 @@ describe 'Paint.rgb_name' do
     Paint.rgb_name("colour232", true).should == "48;5;233"
   end
 
+  it 'handled zero padded colour-names correctly' do
+    Paint.rgb_name("colour16").should == Paint.rgb_name("colour016")
+    Paint.rgb_name("colour2").should == Paint.rgb_name("colour002")
+  end
+
 end
 
 describe 'Paint.random' do
