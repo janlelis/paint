@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### Next
+
+*   Fix nested substitutions, patch by @mildmojo
+
 ### 2.0.0
 #### Major Changes
 
