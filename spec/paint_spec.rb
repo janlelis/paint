@@ -122,11 +122,11 @@ describe 'Paint.[]' do
     end
 
     it 'will work with arbitrary nesting and produce optimized escape sequences' do
-      Paint%['first level - %{second} - first level', :yellow, second:
+      (Paint%['first level - %{second} - first level', :yellow, second:
         ['second level - %{third} - second level', :red, third:
           ['third level', :green]
         ]
-      ].should == "\e[33mfirst level - \e[31msecond level - \e[32mthird level\e[31m - second level\e[33m - first level\e[0m"
+      ]).should == "\e[33mfirst level - \e[31msecond level - \e[32mthird level\e[31m - second level\e[33m - first level\e[0m"
     end
   end
 end
