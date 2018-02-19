@@ -26,7 +26,7 @@
 
 *   Improved performance
 *   Option for :random colors removed (see readme)
-*   Seperate Paint::SHORTCUTS into extra gem
+*   Separate Paint::SHORTCUTS into extra gem
 *   Drop support for Ruby 1 (inoffically still support 1.9.3)
 
 
