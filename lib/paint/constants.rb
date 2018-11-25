@@ -15,7 +15,7 @@ module Paint
     :blue    => 4,
     :magenta => 5,
     :cyan    => 6,
-    :white   => 7,
+    :white   => 7, :gray => 7,
     :default => 9,
   }.freeze
 
@@ -27,7 +27,7 @@ module Paint
     :blue    => 34,
     :magenta => 35,
     :cyan    => 36,
-    :white   => 37,
+    :white   => 37, :gray => 37,
     :default => 39,
   }.freeze
 
@@ -39,7 +39,7 @@ module Paint
     :blue    => 44,
     :magenta => 45,
     :cyan    => 46,
-    :white   => 47,
+    :white   => 47, :gray => 47,
     :default => 49,
   }.freeze
 
@@ -84,7 +84,7 @@ module Paint
     :blue    => [  0,   0, 238],
     :magenta => [205,   0, 205],
     :cyan    => [  0, 205, 205],
-    :white   => [229, 229, 229],
+    :white   => [229, 229, 229], :gray => [229, 229, 229],
   }.each { |k, v| v.freeze }.freeze
 
   # A list of color names for standard bright ansi colors, needed for 16 color fallback mode
@@ -97,6 +97,6 @@ module Paint
     :blue    => [ 92,  92, 255],
     :magenta => [255,   0, 255],
     :cyan    => [  0, 255, 255],
-    :white   => [255, 255, 255],
+    :white   => [255, 255, 255], :gray => [255, 255, 255],
   }.each { |k, v| v.freeze }.freeze
 end

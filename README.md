@@ -104,7 +104,7 @@ Terminal colors/effects get created by [ANSI escape sequences](http://en.wikiped
 * `:blue`
 * `:magenta`
 * `:cyan`
-* `:white`
+* `:white`, `:gray`
 * (`:default`)
 
 When combined with the `:bright` (= `:bold`) effect, the color in the terminal emulator often differs a little bit, thus it is possible to represent 16 colors.
