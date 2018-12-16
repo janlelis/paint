@@ -1,6 +1,6 @@
 # CHANGELOG
 
-### Next
+### 2.0.2
 
 * Remove `gunzip` deprecation warning
 
