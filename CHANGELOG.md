@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 2.0.3
+
+* Add `gray` alias for `white` color, patch by @AlexWayfer
+
 ### 2.0.2
 
 * Remove `gunzip` deprecation warning
