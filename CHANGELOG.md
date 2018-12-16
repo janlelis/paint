@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### Next
+
+* Remove `gunzip` deprecation warning
+
 ### 2.0.1
 
 *   Fix nested substitutions, patch by @mildmojo
