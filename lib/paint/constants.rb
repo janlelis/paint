@@ -44,7 +44,7 @@ module Paint
   }.freeze
 
   # Terminal effects - most of them are not supported ;)
-  # See http://en.wikipedia.org/wiki/ANSI_escape_code
+  # See https://en.wikipedia.org/wiki/ANSI_escape_code
   ANSI_EFFECTS = {
     :reset         => 0,  :nothing         => 0,  # usually supported
     :bright        => 1,  :bold            => 1,  # usually supported
@@ -75,7 +75,7 @@ module Paint
   }.freeze
 
   # A list of color names for standard ansi colors, needed for 16/8 color fallback mode
-  # See http://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+  # See https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
   RGB_COLORS_ANSI = {
     :black   => [  0,   0,   0],
     :red     => [205,   0,   0],
@@ -88,7 +88,7 @@ module Paint
   }.each { |k, v| v.freeze }.freeze
 
   # A list of color names for standard bright ansi colors, needed for 16 color fallback mode
-  # See http://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+  # See https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
   RGB_COLORS_ANSI_BRIGHT = {
     :black   => [127, 127, 127],
     :red     => [255,   0,   0],

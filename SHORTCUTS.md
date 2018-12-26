@@ -1,4 +1,4 @@
-# Paint::SHORTCUTS [<img src="https://badge.fury.io/rb/paint-shortcuts.svg" />](http://badge.fury.io/rb/paint-shortcuts)
+# Paint::SHORTCUTS [<img src="https://badge.fury.io/rb/paint-shortcuts.svg" />](https://badge.fury.io/rb/paint-shortcuts)
 
 This is an optional extension gem for [Paint](https://github.com/janlelis/paint)
 

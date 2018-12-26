@@ -226,7 +226,7 @@ module Paint
     end
 
     # Returns best ANSI color matching an RGB value, without fore-/background information
-    # See http://mail.python.org/pipermail/python-list/2008-December/1150496.html
+    # See https://mail.python.org/pipermail/python-list/2008-December/1150496.html
     def rgb_to_ansi(red, green, blue, use_bright = false)
       color_pool =  RGB_COLORS_ANSI.values
       color_pool += RGB_COLORS_ANSI_BRIGHT.values if use_bright

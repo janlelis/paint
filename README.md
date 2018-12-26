@@ -1,4 +1,4 @@
-# Ruby Paint [<img src="https://badge.fury.io/rb/paint.svg" />](http://badge.fury.io/rb/paint) [<img src="https://travis-ci.org/janlelis/paint.svg" />](https://travis-ci.org/janlelis/paint)
+# Ruby Paint [<img src="https://badge.fury.io/rb/paint.svg" />](https://badge.fury.io/rb/paint) [<img src="https://travis-ci.org/janlelis/paint.svg" />](https://travis-ci.org/janlelis/paint)
 
 Paint creates terminal colors and effects for you. It combines the strengths of **term-ansicolor**, **rainbow**, and similar projects into a simple to use, however still flexible terminal colors gem with no core extensions by default.
 
@@ -79,7 +79,7 @@ When you pass multiple colors, the first one is taken as foreground color and th
 
 ## Windows Support
 
-For ANSI support in Windows OS, you can use [ansicon](https://github.com/adoxa/ansicon) or [ConEmu](http://code.google.com/p/conemu-maximus5/).
+For ANSI support in Windows OS, you can use [ansicon](https://github.com/adoxa/ansicon) or [ConEmu](https://conemu.github.io/) or WSL(https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 ## `Paint.mode`
 
@@ -95,7 +95,7 @@ Paint tries to automatically detect the proper value your terminal is capable of
 
 ## More Details About Terminal Colors and Effects
 
-Terminal colors/effects get created by [ANSI escape sequences](http://en.wikipedia.org/wiki/ANSI_escape_code). These are strings that look like this: `\e[X;X;X;X;X]m` where X are integers with some meaning. For example, `0` means *reset*, `31` means *red foreground* and `41` stands for red background. When you tell **Paint** to use one of the eight ANSI base colors as foreground color, it just inserts a number between `30` and `37` into the sequence. The following colors are available:
+Terminal colors/effects get created by [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code). These are strings that look like this: `\e[X;X;X;X;X]m` where X are integers with some meaning. For example, `0` means *reset*, `31` means *red foreground* and `41` stands for red background. When you tell **Paint** to use one of the eight ANSI base colors as foreground color, it just inserts a number between `30` and `37` into the sequence. The following colors are available:
 
 * `:black`
 * `:red`
@@ -115,7 +115,7 @@ When using the `Paint.[]` method, Paint wraps the given string between the calcu
 
 ### Effects
 
-See [en.wikipedia.org/wiki/ANSI_escape_code](http://en.wikipedia.org/wiki/ANSI_escape_code) for a more detailed discussion:
+See [en.wikipedia.org/wiki/ANSI_escape_code](https://en.wikipedia.org/wiki/ANSI_escape_code) for a more detailed discussion:
 
 #### Often supported
 
@@ -188,7 +188,7 @@ There is an extension gem available which allows you to define custom color defi
 
 ## J-_-L
 
-Copyright (c) 2011-2016 Jan Lelis <http://janlelis.com>, released under the
+Copyright (c) 2011-2016 Jan Lelis <https://janlelis.com>, released under the
 MIT license.
 
 Thank you to [rainbow](https://github.com/sickill/rainbow) and [term-ansicolor](https://github.com/flori/term-ansicolor) for ideas and inspiration. Also, a lot of thanks to all the [contributors](https://github.com/janlelis/paint/contributors)!
