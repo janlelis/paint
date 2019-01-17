@@ -182,12 +182,10 @@ module Paint
         end
       else
         case ENV['TERM']
-        when /-256color$/, 'xterm'
-          256
         when /-color$/, 'rxvt'
           16
         else # optimistic default
-          256
+          TRUE_COLOR
         end
       end
     end
