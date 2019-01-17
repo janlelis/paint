@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Paint
-  VERSION = "2.0.3".freeze
+  VERSION = "2.1.0"
 end

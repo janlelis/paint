@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 2.1.0
+
+* Set True Color as default mode on more terminals, patch by @smoochbot
+
 ### 2.0.3
 
 * Add `gray` alias for `white` color, patch by @AlexWayfer
