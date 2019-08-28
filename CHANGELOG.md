@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Next
+### 2.1.1
 
 * Blacklist True Color support for urxvt, fixes #25
 
