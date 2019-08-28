@@ -182,7 +182,9 @@ module Paint
         end
       else
         case ENV['TERM']
-        when /-color$/, 'rxvt'
+        when /^rxvt-(?:.*)-256color$/
+          256
+        when /-color$/, /^rxvt/
           16
         else # optimistic default
           TRUE_COLOR

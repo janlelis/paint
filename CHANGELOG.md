@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Next
+
+* Blacklist True Color support for urxvt, fixes #25
+
 ### 2.1.0
 
 * Set True Color as default mode on more terminals, patch by @smoochbot
