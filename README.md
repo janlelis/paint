@@ -25,7 +25,7 @@ Starting with **Paint 2.0**, *true color* mode is the new default mode, since mo
 
 ## Supported Rubies
 
-* **2.6**, **2.5**, **2.4**
+* **2.7**, **2.6**, **2.5**, **2.4**
 
 Unsupported, but might still work:
 
