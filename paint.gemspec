@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
   s.name        = "paint"
   s.version     = Paint::VERSION
   s.authors     = ["Jan Lelis"]
-  s.email       = "mail@janlelis.de"
+  s.email       = ["hi@ruby.consulting"]
   s.homepage    = "https://github.com/janlelis/paint"
   s.summary     = "Terminal painter!"
-  s.description = "Terminal painter: No string extensions / RGB and 256 color support / effect support. Usage: Paint['string', :red, :bright]"
+  s.description = "Terminal painter with RGB and 256 (fallback) color and terminal effects support. No string extensions! Usage: Paint['string', :red, :bright]"
   s.license = 'MIT'
 
   s.files = %w[

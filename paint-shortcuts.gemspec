@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "paint-shortcuts"
   s.version     = Paint::SHORTCUTS_VERSION
   s.authors     = ["Jan Lelis"]
-  s.email       = "mail@janlelis.de"
+  s.email       = ["hi@ruby.consulting"]
   s.homepage    = "https://github.com/janlelis/paint"
   s.summary     = "Terminal painter! Shortcut extension."
   s.description = "Extends the paint gem to support custom color shortcuts."
