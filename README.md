@@ -188,7 +188,7 @@ There is an extension gem available which allows you to define custom color defi
 
 ## J-_-L
 
-Copyright (c) 2011-2018 Jan Lelis <https://janlelis.com>, released under the
+Copyright (c) 2011-2020 Jan Lelis <https://janlelis.com>, released under the
 MIT license.
 
 Thank you to [rainbow](https://github.com/sickill/rainbow) and [term-ansicolor](https://github.com/flori/term-ansicolor) for ideas and inspiration. Also, a lot of thanks to all the [contributors](https://github.com/janlelis/paint/contributors)!
