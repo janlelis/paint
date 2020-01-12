@@ -36,8 +36,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '~> 12.3'
   s.add_development_dependency 'benchmark-ips', '~> 2.7'
   s.add_development_dependency 'rainbow', '~> 3.0'
-  s.add_development_dependency 'term-ansicolor', '~> 1.4'
+  s.add_development_dependency 'term-ansicolor', '~> 1.7'
   s.add_development_dependency 'ansi', '~> 1.5'
   s.add_development_dependency 'hansi', '~> 0.2'
-  s.add_development_dependency 'pastel', '~> 0.6'
+  s.add_development_dependency 'pastel', '~> 0.7'
 end
