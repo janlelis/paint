@@ -95,6 +95,8 @@ Paint tries to automatically detect the proper value your terminal is capable of
 
 ## More Details About Terminal Colors and Effects
 
+<img src="https://pbs.twimg.com/media/ENyLvgVXUAgeDTn.jpg" />
+
 Terminal colors/effects get created by [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code). These are strings that look like this: `\e[X;X;X;X;X]m` where X are integers with some meaning. For example, `0` means *reset*, `31` means *red foreground* and `41` stands for red background. When you tell **Paint** to use one of the eight ANSI base colors as foreground color, it just inserts a number between `30` and `37` into the sequence. The following colors are available:
 
 * `:black`
