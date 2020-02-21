@@ -93,6 +93,8 @@ You can choose between five ways to use `Paint.[]` by setting `Paint.mode` to on
 
 Paint tries to automatically detect the proper value your terminal is capable of, please [open an issue](https://github.com/janlelis/paint/issues/new) if `Paint.detect_mode` yields a wrong value for you.
 
+`Paint.detect_mode` will return 0 if the [NO_COLOR environment variable is set](https://github.com/jcs/no_color/).
+
 ## More Details About Terminal Colors and Effects
 
 <img src="https://pbs.twimg.com/media/ENyLvgVXUAgeDTn.jpg" />
