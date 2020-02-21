@@ -1,6 +1,6 @@
 # CHANGELOG
 
-### 2.2.0 (unreleased)
+### 2.2.0
 
 * Support NO_COLOR environment variable, implements #26 (see no-color.org)
 
