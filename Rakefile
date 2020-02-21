@@ -35,7 +35,7 @@ desc "Install the gem locally"
 task :install => :gems do
   gemspecs.each{ |gemspec|
     spec = gemspec_spec_for(gemspec)
-    sh %{gem install pkg/#{spec.name}-#{spec.version}.gem --no-rdoc --no-ri}
+    sh %{gem install pkg/#{spec.name}-#{spec.version}.gem --no-doc}
   }
 end
 
