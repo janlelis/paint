@@ -26,3 +26,10 @@ describe 'Paint.mode' do
     Paint['J-_-L', 'gold'].should == "J-_-L"
   end
 end
+
+describe 'Paint.detect_mode' do
+  it 'does not colorize when NO_COLOR environment variable is set' do
+    ENV['NO_COLOR'] = ''
+    Paint.detect_mode.should == 0
+  end
+end

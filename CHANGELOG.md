@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 2.2.0 (unreleased)
+
+* Support NO_COLOR environment variable, implements #26 (see no-color.org)
+
 ### 2.1.1
 
 * Blacklist True Color support for urxvt, fixes #25

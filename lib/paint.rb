@@ -172,7 +172,9 @@ module Paint
     # Determine supported colors
     # Note: there's no reliable test for 24-bit color support
     def detect_mode
-      if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/ # windows
+      if ENV['NO_COLOR'] # see https://no-color.org/
+        0
+      elsif RbConfig::CONFIG['host_os'] =~ /mswin|mingw/ # windows
         if ENV['ANSICON']
           16
         elsif ENV['ConEmuANSI'] == 'ON'
