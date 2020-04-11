@@ -2,6 +2,10 @@
 
 Paint creates terminal colors and effects for you. It combines the strengths of **term-ansicolor**, **rainbow**, and similar projects into a simple to use, however still flexible terminal colors gem with no core extensions by default.
 
+Supported Rubies: **2.7**, **2.6**, **2.5**
+
+Unsupported, but might still work: **2.4**, **2.3**, **2.2**, **2.1**, **2.0**, **1.9**
+
 ## Features
 
 * No string extensions (suitable for library development)
@@ -22,14 +26,6 @@ Starting with **Paint 2.0**, *true color* mode is the new default mode, since mo
 
 - Manually set `Paint.mode = 256` at the beginning of your code
 - Please [open a new issue](https://github.com/janlelis/paint/issues/new) so we can figure out how to blacklist the terminal used
-
-## Supported Rubies
-
-* **2.7**, **2.6**, **2.5**, **2.4**
-
-Unsupported, but might still work:
-
-* **2.3**, **2.2**, **2.1**, **2.0**, **1.9**
 
 ## Setup
 
