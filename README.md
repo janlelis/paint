@@ -184,7 +184,7 @@ pa "Ruby", :red, :underline  # same as puts Paint["Ruby", :red, :underline]
 
 ## Advanced Usage: Shortcuts
 
-There is an extension gem available which allows you to define custom color definitions, which you can reuse later. See [SHORTCUTS.md](https://github.com/janlelis/paint/blob/master/SHORTCUTS.md) for documentation. This is completely optional.
+There is an extension gem available which allows you to define custom color definitions, which you can reuse later. See [SHORTCUTS.md](https://github.com/janlelis/paint/blob/main/SHORTCUTS.md) for documentation. This is completely optional.
 
 ## J-_-L
 
