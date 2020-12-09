@@ -182,6 +182,8 @@ module Paint
         else
           0
         end
+      elsif ENV['TERM_PROGRAM'] == 'Apple_Terminal'
+        256
       else
         case ENV['TERM']
         when /^rxvt-(?:.*)-256color$/

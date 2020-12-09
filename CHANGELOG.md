@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 2.2.1 (unreleased)
+
+* Explicitly set mac's Terminal.app to 256 colors only, fixes #28
+
 ### 2.2.0
 
 * Support NO_COLOR environment variable, implements #26 (see no-color.org)
