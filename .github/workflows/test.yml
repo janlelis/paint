@@ -1,0 +1,52 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby }} (${{ matrix.os }})
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    strategy:
+      matrix:
+        ruby:
+        - 3.0
+        - 2.7
+        - 2.6
+        - 2.5
+        - jruby-9.2.13.0
+        - truffleruby-20.3.0
+        os:
+        - ubuntu-latest
+        - macos-latest
+    runs-on: ${{matrix.os}}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{matrix.ruby}}
+        bundler-cache: true
+    - name: Run tests
+      run: bundle exec rake
+
+  test-windows:
+    name: Ruby ${{ matrix.ruby }} (windows-latest)
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    strategy:
+      matrix:
+        ruby:
+        - 3.0
+        - 2.7
+        - 2.6
+        - 2.5
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{matrix.ruby}}
+        bundler-cache: true
+    - run: cinst ansicon
+    - name: Run tests
+      run: bundle exec rake
