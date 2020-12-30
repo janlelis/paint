@@ -1,4 +1,4 @@
-# Ruby Paint [<img src="https://badge.fury.io/rb/paint.svg" />](https://badge.fury.io/rb/paint) [<img src="https://github.com/janlelis/paint/workflows/Test/badge.svg" />](https://github.com/janlelis/paint/workflows/Test/badge.svg)
+# Ruby Paint [<img src="https://badge.fury.io/rb/paint.svg" />](https://badge.fury.io/rb/paint) [<img src="https://github.com/janlelis/paint/workflows/Test/badge.svg" />](https://github.com/janlelis/paint/actions?query=workflow%3ATest)
 
 Paint creates terminal colors and effects for you. It combines the strengths of **term-ansicolor**, **rainbow**, and similar projects into a simple to use, however still flexible terminal colors gem with no core extensions by default.
 
