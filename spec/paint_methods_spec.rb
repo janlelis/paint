@@ -70,6 +70,15 @@ describe 'Paint.rgb_name' do
   it 'returns background ansi code sequence for one of 256 colors if second parameter is true' do
     Paint.rgb_name("gold", true).should == "48;5;226"
   end
+
+  it 'returns ansi code sequence for the named color xterm220' do
+    Paint.rgb_name("xterm220").should == "38;5;226"
+  end
+
+  it 'returns background ansi code sequence for named color colour232 if second parameter is true' do
+    Paint.rgb_name("xterm232", true).should == "48;5;233"
+  end
+
 end
 
 describe 'Paint.random' do
