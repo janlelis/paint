@@ -2,9 +2,9 @@
 
 Paint creates terminal colors and effects for you. It combines the strengths of **term-ansicolor**, **rainbow**, and similar projects into a simple to use, however still flexible terminal colors gem with no core extensions by default.
 
-Supported Rubies: **3.0**, **2.7**, **2.6**, **2.5**
+Supported Rubies: **3.1**, **3.0**, **2.7**
 
-Unsupported, but might still work: **2.4**, **2.3**, **2.2**, **2.1**, **2.0**, **1.9**
+Unsupported, but might still work: **2.6**, **2.5**, **2.4**, **2.3**, **2.2**, **2.1**, **2.0**, **1.9**
 
 ## Features
 
