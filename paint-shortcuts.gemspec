@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = "Terminal painter! Shortcut extension."
   s.description = "Extends the paint gem to support custom color shortcuts."
   s.license = 'MIT'
+  s.metadata    = { "rubygems_mfa_required" => "true" }
   s.files = %w[
     paint-shortcuts.gemspec
     lib/paint/shortcuts.rb

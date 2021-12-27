@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = "Terminal painter!"
   s.description = "Terminal painter with RGB and 256 (fallback) color and terminal effects support. No string extensions! Usage: Paint['string', :red, :bright]"
   s.license = 'MIT'
+  s.metadata    = { "rubygems_mfa_required" => "true" }
 
   s.files = %w[
     paint.gemspec
