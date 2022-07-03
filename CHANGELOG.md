@@ -1,5 +1,10 @@
 # CHANGELOG
 
+### 2.2.2 (unreleased)
+
+* Fix #31: Make Paint% work with frozen strings enabled
+* Fix #29: Update dev dependencies
+
 ### 2.2.1
 
 * Explicitly set mac's Terminal.app to 256 colors only, fixes #28

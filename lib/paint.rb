@@ -25,7 +25,7 @@ module Paint
       # Substitutions & Nesting
       if substitutions
         substitutions.each{ |key, value|
-          string.gsub!(
+          string = string.gsub(
             "%{#{key}}",
             (value.is_a?(Array) ? self.%(value, current_color) : value.to_s)
           )

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'Paint.[]' do
@@ -127,6 +129,12 @@ describe 'Paint.[]' do
           ['third level', :green]
         ]
       ]).should == "\e[33mfirst level - \e[31msecond level - \e[32mthird level\e[31m - second level\e[33m - first level\e[0m"
+    end
+  end
+
+  describe 'Frozen string support' do
+    it 'works with example string from #31' do
+      (Paint%["%{f}(%{x})",:blue, f: "f", x: ["x", :gray]]).should == "\e[34mf(\e[37mx\e[34m)\e[0m"
     end
   end
 end
