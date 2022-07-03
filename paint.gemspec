@@ -33,12 +33,12 @@ Gem::Specification.new do |s|
   ]
 
   s.required_ruby_version = '>= 1.9.3'
-  s.add_development_dependency 'rspec', '~> 3.2'
-  s.add_development_dependency 'rake', '~> 12.3'
-  s.add_development_dependency 'benchmark-ips', '~> 2.7'
-  s.add_development_dependency 'rainbow', '~> 3.0'
+  s.add_development_dependency 'rspec', '~> 3.11'
+  s.add_development_dependency 'rake', '~> 13.0'
+  s.add_development_dependency 'benchmark-ips', '~> 2.10'
+  s.add_development_dependency 'rainbow', '~> 3.1'
   s.add_development_dependency 'term-ansicolor', '~> 1.7'
   s.add_development_dependency 'ansi', '~> 1.5'
   s.add_development_dependency 'hansi', '~> 0.2'
-  s.add_development_dependency 'pastel', '~> 0.7'
+  s.add_development_dependency 'pastel', '~> 0.8'
 end
