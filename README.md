@@ -75,7 +75,7 @@ When you pass multiple colors, the first one is taken as foreground color and th
 
 ## Windows Support
 
-For ANSI support in Windows OS, you can use [ansicon](https://github.com/adoxa/ansicon) or [ConEmu](https://conemu.github.io/) or WSL(https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+For ANSI support in Windows OS, you can use [ansicon](https://github.com/adoxa/ansicon) or [ConEmu](https://conemu.github.io/) or [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 ## `Paint.mode`
 
