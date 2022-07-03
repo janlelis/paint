@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'paint/version'
 require_relative 'paint/constants'
 require_relative 'paint/util'

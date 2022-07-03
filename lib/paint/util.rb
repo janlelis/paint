@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Paint
   # Standalone helpers which add functionality you sometimes need when working with terminal colors
   class << self

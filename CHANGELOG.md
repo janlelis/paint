@@ -2,7 +2,8 @@
 
 ### 2.2.2 (unreleased)
 
-* Fix #31: Make Paint% work with frozen strings enabled
+* Fix #31: Make paint work with frozen strings enabled
+    * Also make paint library itself frozen
 * Fix #29: Update dev dependencies
 
 ### 2.2.1

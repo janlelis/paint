@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Paint
   # Clears all colors
-  NOTHING = "\033[0m".freeze
+  NOTHING = "\033[0m"
 
   # Number of possible colors in TRUE COLOR mode
   TRUE_COLOR = 0xFFFFFF
