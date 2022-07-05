@@ -52,3 +52,8 @@ task :rainbow256 do
   }
   puts
 end
+
+desc "Start console session with libraries loaded"
+task :irb do
+  sh "irb -I ./lib -r paint -r paint/shortcuts"
+end

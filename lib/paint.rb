@@ -29,7 +29,7 @@ module Paint
         substitutions.each{ |key, value|
           string = string.gsub(
             "%{#{key}}",
-            (value.is_a?(Array) ? self.%(value, current_color) : value.to_s)
+            (value.is_a?(Array) ? self.%(value, "#{clear_color}#{current_color}") : value.to_s)
           )
         }
       end
