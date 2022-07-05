@@ -10,7 +10,7 @@ Unsupported, but might still work: **2.6**, **2.5**, **2.4**, **2.3**, **2.2**, 
 
 * No string extensions (suitable for library development)
 * Simple API
-* Faster than other terminal color gems ([as of January 2020](https://gist.github.com/janlelis/91413b9295c81ee873dc))
+* Faster than other terminal color gems ([as of July 2022](https://gist.github.com/janlelis/91413b9295c81ee873dc))
 * Supports *true color* or 256 colors (for capable terminals)
 * Allows you to set any terminal effects
 * `Paint.mode`: Fall-back modes for terminals with less colors, supported modes:
