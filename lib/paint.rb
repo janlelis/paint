@@ -26,8 +26,10 @@ module Paint
 
       # Substitutions & Nesting
       if substitutions
+        string = string.dup
+
         substitutions.each{ |key, value|
-          string = string.gsub(
+          string.gsub!(
             "%{#{key}}",
             value.is_a?(Array) ?
             self.%(value, clear_color + current_color) :
