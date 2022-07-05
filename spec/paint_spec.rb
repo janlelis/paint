@@ -123,26 +123,24 @@ describe 'Paint.[]' do
           "\e[33mJ-_-L\e[0m"
     end
 
-    it 'will work with arbitrary nesting and produce optimized escape sequences' do
+    it 'will work with arbitrary nesting and stacks escape sequences' do
       (Paint%['first level - %{second} - first level', :yellow, second:
         ['second level - %{third} - second level', :red, third:
           ['third level', :green]
         ]
-      ]).should == "\e[33mfirst level - \e[31msecond level - \e[32mthird level\e[31m - second level\e[33m - first level\e[0m"
+      ]).should == "\e[33mfirst level - \e[31msecond level - \e[32mthird level\e[0m\e[33m\e[31m - second level\e[0m\e[33m - first level\e[0m"
     end
 
-    it 'Resets modifiers correctly (gh#30)' do
+    it 'resets colors / effects correctly #30' do
       (
         Paint%['Yellow string with a %{blue_text} in it', :yellow,
           blue_text: ["blue text", :blue, :underline]
         ]
       ).should == "\e[33mYellow string with a \e[34;4mblue text\e[0m\e[33m in it\e[0m"
     end
-  end
 
-  describe 'Frozen string support' do
-    it 'works with example string from #31' do
-      (Paint%["%{f}(%{x})",:blue, f: "f", x: ["x", :gray]]).should == "\e[34mf(\e[37mx\e[34m)\e[0m"
+    it 'works with frozen strings, see #31' do
+      (Paint%["%{f}(%{x})",:blue, f: "f", x: ["x", :gray]]).should == "\e[34mf(\e[37mx\e[0m\e[34m)\e[0m"
     end
   end
 end

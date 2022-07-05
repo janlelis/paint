@@ -157,8 +157,10 @@ From time to time, you might find yourself in a situation where you want to colo
 Paint%['Yellow string with a %{blue_text} in it', :yellow,
   blue_text: ["blue text", :blue]
 ]
-# => "\e[33mYellow string with a \e[34mblue text\e[33m in it\e[0m"
+# => "\e[33mYellow string with a \e[34mblue text\e[0m\e[33m in it\e[0m"
 ```
+
+Please note that the resulting ASCII escape sequence can be quiet verbose since it restores the parent context after the substitution.
 
 ## Utilities
 

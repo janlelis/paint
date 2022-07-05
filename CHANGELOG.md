@@ -1,6 +1,13 @@
 # CHANGELOG
 
-### 2.2.2 (unreleased)
+### 2.3.0 (unreleased)
+
+#### Please note: Paint.% (nesting) now returns different escape sequences!
+
+* Fix #30: Color/effect nesting restores the parent level correctly. More
+           verbose ASCII escape sequences are generated to ensure this.
+
+#### Other Fixes
 
 * Fix #31: Make paint work with frozen strings enabled
     * Also make paint library itself frozen
