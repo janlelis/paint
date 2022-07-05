@@ -160,7 +160,7 @@ Paint%['Yellow string with a %{blue_text} in it', :yellow,
 # => "\e[33mYellow string with a \e[34mblue text\e[0m\e[33m in it\e[0m"
 ```
 
-Please note that the resulting ASCII escape sequence can be quiet verbose since it restores the parent context after the substitution.
+Please note that the resulting ASCII escape sequence can be quite verbose since it restores the parent context after the substitution.
 
 ## Utilities
 

@@ -1,8 +1,8 @@
 # CHANGELOG
 
-### 2.3.0 (unreleased)
+### 2.3.0
 
-#### Please note: Paint.% (nesting) now returns different escape sequences!
+#### Paint.%() now returns different escape sequences!
 
 * Fix #30: Color/effect nesting restores the parent level correctly. More
            verbose ASCII escape sequences are generated to ensure this.
