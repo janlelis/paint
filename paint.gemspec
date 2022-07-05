@@ -17,7 +17,8 @@ Gem::Specification.new do |s|
     paint.gemspec
     Rakefile
     .rspec
-    .travis.yml
+    .github/workflows/test.yml
+    .github/workflows/codeql-analysis.yml
     lib/paint.rb
     lib/paint/pa.rb
     lib/paint/rgb_colors.rb
