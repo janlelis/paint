@@ -2,7 +2,7 @@
 
 Paint creates terminal colors and effects for you. It combines the strengths of **term-ansicolor**, **rainbow**, and similar projects into a simple to use, however still flexible terminal colors gem with no core extensions by default.
 
-Supported Rubies: **3.1**, **3.0**, **2.7**
+Supported Rubies: **3.2**, **3.1**, **3.0**, **2.7**
 
 Unsupported, but might still work: **2.6**, **2.5**, **2.4**, **2.3**, **2.2**, **2.1**, **2.0**, **1.9**
 
@@ -190,7 +190,7 @@ There is an extension gem available which allows you to define custom color defi
 
 ## J-_-L
 
-Copyright (c) 2011-2021 Jan Lelis <https://janlelis.com>, released under the
+Copyright (c) 2011-2023 Jan Lelis <https://janlelis.com>, released under the
 MIT license.
 
 Thank you to [rainbow](https://github.com/sickill/rainbow) and [term-ansicolor](https://github.com/flori/term-ansicolor) for ideas and inspiration. Also, a lot of thanks to all the [contributors](https://github.com/janlelis/paint/contributors)!
